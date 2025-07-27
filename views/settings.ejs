@@ -1,0 +1,124 @@
+<style>
+    /* Mobile-first responsive enhancements for settings */
+    @media (max-width: 768px) {
+        .container {
+            padding-left: 1rem;
+            padding-right: 1rem;
+        }
+        
+        .form-control {
+            border-radius: 0.5rem;
+            min-height: 50px;
+        }
+        
+        .btn {
+            border-radius: 0.5rem;
+            min-height: 50px;
+        }
+    }
+</style>
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <!-- Header -->
+            <div class="text-center mb-5">
+                <h1 class="display-6 fw-bold">Account Settings</h1>
+                <p class="lead text-muted">Manage your account preferences and information</p>
+            </div>
+
+            <!-- Settings Form -->
+            <div class="card shadow-sm">
+                <div class="card-header bg-white">
+                    <h5 class="mb-0 fw-bold">
+                        <i class="bi bi-person-gear me-2"></i>Personal Information
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <form method="POST" action="/settings">
+                        <!-- Name Field -->
+                        <div class="mb-4">
+                            <label for="name" class="form-label fw-bold">
+                                <i class="bi bi-person me-2"></i>Full Name
+                            </label>
+                            <input type="text" class="form-control form-control-lg" id="name" name="name" 
+                                   value="<%= user.name %>" required minlength="2" maxlength="100"
+                                   placeholder="Enter your full name">
+                            <div class="form-text">This name will appear on your generated cover letters</div>
+                        </div>
+
+                        <!-- Email Field (Read-only) -->
+                        <div class="mb-4">
+                            <label for="email" class="form-label fw-bold">
+                                <i class="bi bi-envelope me-2"></i>Email Address
+                            </label>
+                            <input type="email" class="form-control form-control-lg" id="email" 
+                                   value="<%= user.email %>" readonly disabled>
+                            <div class="form-text">Email cannot be changed as it's linked to your Google account</div>
+                        </div>
+
+                        <!-- Account Type -->
+                        <div class="mb-4">
+                            <label class="form-label fw-bold">
+                                <i class="bi bi-shield-check me-2"></i>Account Type
+                            </label>
+                            <div class="p-3 bg-light rounded">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <strong>Google Account</strong>
+                                        <div class="small text-muted">Authenticated via Google OAuth</div>
+                                    </div>
+                                    <span class="badge bg-success">Active</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <div class="d-flex flex-column flex-md-row gap-3">
+                            <button type="submit" class="btn btn-primary btn-lg flex-grow-1">
+                                <i class="bi bi-check-circle me-2"></i>Save Changes
+                            </button>
+                            <a href="/dashboard" class="btn btn-outline-secondary btn-lg">
+                                <i class="bi bi-arrow-left me-2"></i>Back to Dashboard
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Additional Settings -->
+            <div class="card shadow-sm mt-4">
+                <div class="card-header bg-white">
+                    <h5 class="mb-0 fw-bold">
+                        <i class="bi bi-gear me-2"></i>Quick Actions
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div class="row g-3">
+                        <div class="col-12 col-md-4">
+                            <a href="/profile" class="btn btn-outline-primary w-100 p-3">
+                                <i class="bi bi-person-circle d-block mb-2" style="font-size: 1.5rem;"></i>
+                                <strong>View Profile</strong>
+                                <br><small class="text-muted">Account overview</small>
+                            </a>
+                        </div>
+                        <div class="col-12 col-md-4">
+                            <a href="/dashboard" class="btn btn-outline-success w-100 p-3">
+                                <i class="bi bi-speedometer2 d-block mb-2" style="font-size: 1.5rem;"></i>
+                                <strong>Dashboard</strong>
+                                <br><small class="text-muted">Main dashboard</small>
+                            </a>
+                        </div>
+                        <div class="col-12 col-md-4">
+                            <a href="/generate" class="btn btn-outline-info w-100 p-3">
+                                <i class="bi bi-file-earmark-plus d-block mb-2" style="font-size: 1.5rem;"></i>
+                                <strong>Generate Letter</strong>
+                                <br><small class="text-muted">Create new cover letter</small>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

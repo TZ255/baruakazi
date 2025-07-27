@@ -1,0 +1,327 @@
+<style>
+    /* Mobile-first responsive enhancements */
+    @media (max-width: 768px) {
+        .container {
+            padding-left: 1rem;
+            padding-right: 1rem;
+        }
+        
+        .form-floating > label {
+            font-size: 0.875rem;
+        }
+        
+        .form-control:focus {
+            box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
+        }
+        
+        .btn {
+            border-radius: 0.5rem;
+        }
+        
+        .form-control {
+            border-radius: 0.5rem;
+        }
+        
+        /* Ensure file input is touch-friendly */
+        input[type="file"] {
+            cursor: pointer;
+        }
+        
+        /* Better touch targets */
+        .form-label {
+            margin-bottom: 0.75rem;
+        }
+    }
+    
+    /* Enhanced file input styling */
+    input[type="file"]:focus {
+        outline: 2px solid #0d6efd;
+        outline-offset: 2px;
+    }
+</style>
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="text-center mb-5">
+                <h1 class="display-5 fw-bold">Generate Your Cover Letter</h1>
+                <p class="lead text-muted">Weka CV yako na taarifa za kazi kutengeneza cover letter bora kulingana na kazi husika</p>
+                <p class="lead text-muted">Credits: <%= userInfo?.generateLimit %></p>
+                
+                <!-- Job Pre-fill Notification -->
+                <% if (jobData) { %>
+                    <div class="alert alert-info" role="alert">
+                        <i class="bi bi-info-circle me-2"></i>
+                        <strong>Job details pre-filled!</strong> We've automatically filled the form with details from the 
+                        <strong><%= jobData.jobTitle %></strong> position at <strong><%= jobData.companyName %></strong>. 
+                        You can modify any details as needed.
+                    </div>
+                <% } %>
+            </div>
+
+            <div class="generate-form">
+                <form id="generateForm" action="/generate" method="POST" enctype="multipart/form-data">
+                    <!-- CV Upload Section -->
+                    <div class="mb-4">
+                        <label for="cv" class="form-label fw-bold fs-6">
+                            <i class="bi bi-cloud-upload me-2"></i>Upload Your CV/Resume
+                        </label>
+                        <div class="position-relative">
+                            <input type="file" class="form-control form-control-lg" id="cv" name="cv" accept=".pdf" required 
+                                   style="min-height: 60px; padding: 1rem; font-size: 1rem;">
+                        </div>
+                        <div class="form-text mt-2">
+                            <i class="bi bi-info-circle me-1"></i>PDF format only, max 2MB
+                        </div>
+                    </div>
+
+                    <!-- Job Details Section -->
+                    <div class="mb-4">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" id="jobTitle" name="jobTitle"
+                                placeholder="Software Developer" value="<%= jobData ? jobData.jobTitle : '' %>" required
+                                style="min-height: 58px;">
+                            <label for="jobTitle">
+                                <i class="bi bi-briefcase me-2"></i>Job Title
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="row g-3 g-md-4 mb-4">
+                        <div class="col-12 col-md-6">
+                            <div class="form-floating">
+                                <input type="text" class="form-control" id="jobLocation" name="jobLocation"
+                                    placeholder="Dar es Salaam, Tanzania" value="<%= jobData ? jobData.location : '' %>" required
+                                    style="min-height: 58px;">
+                                <label for="jobLocation">
+                                    <i class="bi bi-geo-alt me-2"></i>Job Location
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-md-6">
+                            <div class="form-floating">
+                                <input type="text" class="form-control" id="companyName" name="companyName"
+                                    placeholder="TechCorp Tanzania" value="<%= jobData ? jobData.companyName : '' %>" required
+                                    style="min-height: 58px;">
+                                <label for="companyName">
+                                    <i class="bi bi-building me-2"></i>Company Name
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Job Description -->
+                    <div class="mb-4">
+                        <label for="jobDescription" class="form-label fw-bold fs-6">
+                            <i class="bi bi-file-text me-2"></i>Job Description
+                        </label>
+                        <textarea class="form-control" id="jobDescription" name="jobDescription" rows="6"
+                            placeholder="Paste tangazo la kazi hapa..." required
+                            style="min-height: 150px; resize: vertical;"><%- jobData ? jobData.description?.text : '' %></textarea>
+                        <div class="form-text mt-2">Copy and paste the job posting to help us tailor your cover letter</div>
+                    </div>
+
+                    <!-- Message Area -->
+                    <div id="messageArea" class="mb-4" style="display: none;">
+                        <div id="messageAlert" class="alert" role="alert"></div>
+                    </div>
+
+                    <!-- Progress Bar (Hidden initially) -->
+                    <div class="progress-container mb-4" style="display: none;">
+                        <div class="progress" style="height: 20px;">
+                            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
+                                style="width: 100%"></div>
+                        </div>
+                        <small class="text-muted mt-2 d-block">Generating your cover letter...</small>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-primary btn-lg w-100 w-md-auto px-5" id="generateBtn"
+                                style="min-height: 60px; font-size: 1.1rem;">
+                            <i class="bi bi-magic me-2"></i>Generate Cover Letter
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Tips Section -->
+<div class="container py-5">
+    <div class="row">
+        <div class="col-lg-8 mx-auto">
+            <div class="card bg-light border-0">
+                <div class="card-body p-4">
+                    <h5 class="fw-bold mb-3">
+                        <i class="bi bi-lightbulb text-warning me-2"></i>Tips for Better Results
+                    </h5>
+                    <ul class="list-unstyled mb-0">
+                        <li class="mb-2">
+                            <i class="bi bi-check-circle text-success me-2"></i>
+                            Upload a recent, well-formatted CV for best results
+                        </li>
+                        <li class="mb-2">
+                            <i class="bi bi-check-circle text-success me-2"></i>
+                            Include the complete job description for accurate tailoring
+                        </li>
+                        <li class="mb-2">
+                            <i class="bi bi-check-circle text-success me-2"></i>
+                            Mention specific skills or experiences you want highlighted
+                        </li>
+                        <li class="mb-0">
+                            <i class="bi bi-check-circle text-success me-2"></i>
+                            Review and customize the generated letter before sending
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const form = document.getElementById('generateForm');
+        const cvInput = document.getElementById('cv');
+        const progressContainer = document.querySelector('.progress-container');
+        const submitBtn = form.querySelector('button[type="submit"]');
+
+        // File upload handling
+        cvInput.addEventListener('change', function (e) {
+            const file = e.target.files[0];
+
+            if (file) {
+                if (file.type !== 'application/pdf') {
+                    alert('Please select a PDF file only.');
+                    cvInput.value = '';
+                    cvInput.classList.add('is-invalid');
+                    return;
+                }
+
+                if (file.size > 2 * 1024 * 1024) {
+                    alert('File size must be less than 2MB.');
+                    cvInput.value = '';
+                    cvInput.classList.add('is-invalid');
+                    return;
+                }
+
+                // Remove any invalid state and add valid state
+                cvInput.classList.remove('is-invalid');
+                cvInput.classList.add('is-valid');
+            }
+        });
+
+        // Form submission with fetch
+        form.addEventListener('submit', async function (e) {
+            e.preventDefault(); // Always prevent default
+
+            // Clear previous messages
+            hideMessage();
+
+            // Validate form fields
+            const jobTitle = document.getElementById('jobTitle').value.trim();
+            const jobLocation = document.getElementById('jobLocation').value.trim();
+            const companyName = document.getElementById('companyName').value.trim();
+            const jobDescription = document.getElementById('jobDescription').value.trim();
+
+            // Check all required fields
+            if (!jobTitle || !jobLocation || !companyName || !jobDescription) {
+                showMessage('Please fill in all required fields.', 'error');
+                return;
+            }
+
+            // Validate CV file
+            if (!cvInput.files[0]) {
+                showMessage('Please upload your CV first.', 'error');
+                // Focus on the file input and add invalid state
+                cvInput.classList.add('is-invalid');
+                cvInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                return;
+            }
+
+            // Show loading state
+            const generateBtn = document.getElementById('generateBtn');
+            const originalBtnText = generateBtn.innerHTML;
+            generateBtn.disabled = true;
+            generateBtn.innerHTML = '<i class="bi bi-hourglass-split me-2"></i>Generating...';
+            progressContainer.style.display = 'block';
+
+            try {
+                // Create FormData with all form fields
+                const formData = new FormData();
+                formData.append('jobTitle', jobTitle);
+                formData.append('jobLocation', jobLocation);
+                formData.append('companyName', companyName);
+                formData.append('jobDescription', jobDescription);
+                formData.append('cv', cvInput.files[0]);
+
+                // Send request
+                const response = await fetch('/generate', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const result = await response.json();
+
+                if (response.ok && result.success) {
+                    // Show success message
+                    showMessage('Cover letter generated successfully! Redirecting...', 'success');
+
+                    // Redirect after a short delay
+                    setTimeout(() => {
+                        window.location.href = result.redirectUrl;
+                    }, 1500);
+
+                } else {
+                    // Check if error is related to payment/credits
+                    if (result.error && result.error.includes('Malipo yako yamekwisha')) {
+                        // Redirect to payment page
+                        window.location.href = '/payment';
+                        return;
+                    }
+                    
+                    // Show error message
+                    showMessage(result.error || 'Failed to generate cover letter. Please try again.', 'error');
+
+                    // Reset button
+                    generateBtn.disabled = false;
+                    generateBtn.innerHTML = originalBtnText;
+                    progressContainer.style.display = 'none';
+                }
+
+            } catch (error) {
+                console.error('Generation error:', error);
+                showMessage('Network error. Please check your connection and try again.', 'error');
+
+                // Reset button
+                generateBtn.disabled = false;
+                generateBtn.innerHTML = originalBtnText;
+                progressContainer.style.display = 'none';
+            }
+        });
+
+        // Helper functions for messages
+        function showMessage(text, type) {
+            const messageArea = document.getElementById('messageArea');
+            let alert = document.getElementById('messageAlert');
+
+            if (!alert || messageArea) return console.log('Alert or MessageArea not found');
+
+            // Set alert type
+            alert.className = `alert alert-${type === 'error' ? 'danger' : 'success'}`;
+            alert.textContent = text;
+
+            // Show message area
+            messageArea.style.display = 'block';
+            messageArea.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        function hideMessage() {
+            const messageArea = document.getElementById('messageArea');
+            messageArea.style.display = 'none';
+        }
+    });
+</script>

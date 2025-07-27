@@ -1,0 +1,187 @@
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <!-- Header -->
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <div>
+                    <h1 class="display-6 fw-bold">
+                        <%= action === 'create' ? 'Post New Job' : 'Edit Job' %>
+                    </h1>
+                    <p class="text-muted">
+                        <%= action === 'create' ? 'Create a new job posting' : 'Update job posting details' %>
+                    </p>
+                </div>
+                <a href="/admin" class="btn btn-outline-secondary">
+                    <i class="bi bi-arrow-left me-2"></i>Back to Dashboard
+                </a>
+            </div>
+
+            <!-- Job Form -->
+            <div class="card">
+                <div class="card-body p-4">
+                    <form id="jobForm" method="POST" action="<%= action === 'create' ? '/admin/jobs' : `/admin/jobs/${job._id}?_method=PUT` %>">
+                        <!-- Basic Information -->
+                        <div class="row g-4 mb-4">
+                            <div class="col-12">
+                                <h5 class="fw-bold border-bottom pb-2 mb-3">Basic Information</h5>
+                            </div>
+                            
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <input type="text" class="form-control" id="jobTitle" name="jobTitle"
+                                           value="<%= job ? job.jobTitle : '' %>" required>
+                                    <label for="jobTitle">Job Title *</label>
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <select class="form-select" id="jobType" name="jobType" disabled>
+                                        <option value="">Select Type</option>
+                                        <option value="Full-time" <%= job && job.jobType === 'Full-time' ? 'selected' : '' %>>Full-time</option>
+                                        <option value="Part-time" <%= job && job.jobType === 'Part-time' ? 'selected' : '' %>>Part-time</option>
+                                        <option value="Contract" <%= job && job.jobType === 'Contract' ? 'selected' : '' %>>Contract</option>
+                                        <option value="Remote" <%= job && job.jobType === 'Remote' ? 'selected' : '' %>>Remote</option>
+                                        <option value="Hybrid" <%= job && job.jobType === 'Hybrid' ? 'selected' : '' %>>Hybrid</option>
+                                    </select>
+                                    <label for="jobType">Job Type *</label>
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <input type="text" class="form-control" id="companyName" name="companyName"
+                                           value="<%= job ? job.companyName : '' %>" required>
+                                    <label for="companyName">Company Name *</label>
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <input type="text" class="form-control" id="location" name="location"
+                                           value="<%= job ? job.location : '' %>" required>
+                                    <label for="location">Location *</label>
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <input type="text" class="form-control" id="reportTo" name="reportTo"
+                                           value="<%= job ? job.reportTo : 'Hiring Manager' %>">
+                                    <label for="reportTo">Reports To</label>
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <input type="date" class="form-control" id="applicationDeadline" name="applicationDeadline"
+                                           value="<%= job && job.applicationDeadline ? job.applicationDeadline.toISOString().split('T')[0] : '' %>" disabled>
+                                    <label for="applicationDeadline">Application Deadline</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Salary Information -->
+                        <div class="row g-4 mb-4">
+                            <div class="col-12">
+                                <h5 class="fw-bold border-bottom pb-2 mb-3">Salary Information (Optional)</h5>
+                            </div>
+                            
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <input type="number" class="form-control" id="salaryMin" name="salaryMin"
+                                           value="<%= job && job.salary && job.salary.min ? job.salary.min : '' %>" disabled>
+                                    <label for="salaryMin">Minimum Salary (TZS)</label>
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <input type="number" class="form-control" id="salaryMax" name="salaryMax"
+                                           value="<%= job && job.salary && job.salary.max ? job.salary.max : '' %>" disabled>
+                                    <label for="salaryMax">Maximum Salary (TZS)</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Job Description -->
+                        <div class="mb-4">
+                            <label for="description" class="form-label fw-bold">
+                                <i class="bi bi-file-text me-2"></i>Job Description *
+                            </label>
+                            <textarea class="form-control" id="description" name="description" rows="8" required
+                                      placeholder="Enter the job description. This will be automatically formatted using AI for better presentation..."><%= job ? job.description : '' %></textarea>
+                            <div class="form-text">
+                                <i class="bi bi-magic text-primary me-1"></i>
+                                This will be automatically formatted using AI for better presentation
+                            </div>
+                        </div>
+
+                        <!-- Requirements -->
+                        <div class="mb-4">
+                            <label for="requirements" class="form-label fw-bold">
+                                <i class="bi bi-list-check me-2"></i>Requirements (Optional)
+                            </label>
+                            <textarea class="form-control" id="requirements" name="requirements" rows="5"
+                                      placeholder="Enter each requirement on a new line..." disabled><%= job && job.requirements ? job.requirements.join('\n') : '' %></textarea>
+                            <div class="form-text">Enter each requirement on a separate line</div>
+                        </div>
+
+                        <!-- Benefits -->
+                        <div class="mb-4">
+                            <label for="benefits" class="form-label fw-bold">
+                                <i class="bi bi-gift me-2"></i>Benefits (Optional)
+                            </label>
+                            <textarea class="form-control" id="benefits" name="benefits" rows="4"
+                                      placeholder="Enter each benefit on a new line..." disabled><%= job && job.benefits ? job.benefits.join('\n') : '' %></textarea>
+                            <div class="form-text">Enter each benefit on a separate line</div>
+                        </div>
+
+                        <!-- Status (for editing only) -->
+                        <% if (action === 'edit') { %>
+                            <div class="mb-4">
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" id="isActive" name="isActive" value="true"
+                                           <%= job && job.isActive ? 'checked' : '' %>>
+                                    <label class="form-check-label fw-bold" for="isActive">
+                                        Job is Active
+                                    </label>
+                                    <div class="form-text">Inactive jobs won't be visible to users</div>
+                                </div>
+                            </div>
+                        <% } %>
+
+                        <!-- Submit Button -->
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-primary btn-lg px-5" id="submitBtn">
+                                <i class="bi bi-<%= action === 'create' ? 'plus-circle' : 'check-circle' %> me-2"></i>
+                                <%= action === 'create' ? 'Post Job' : 'Update Job' %>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const form = document.getElementById('jobForm');
+        const submitBtn = document.getElementById('submitBtn');
+
+        form.addEventListener('submit', function(e) {
+            // Show loading state
+            const originalText = submitBtn.innerHTML;
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="bi bi-hourglass-split me-2"></i>Processing...';
+
+            // Note: Form will submit naturally, this just provides user feedback
+            setTimeout(() => {
+                // Reset if form doesn't redirect (shouldn't happen normally)
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = originalText;
+            }, 10000);
+        });
+    });
+</script>

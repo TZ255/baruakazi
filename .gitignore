@@ -1,0 +1,6 @@
+node_modules/
+.claude/
+GUIDES/
+.env
+.docs
+CLAUDE.md

@@ -1,0 +1,169 @@
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <!-- Success Message -->
+            <div class="text-center mb-5">
+                <div class="mb-4">
+                    <i class="bi bi-check-circle-fill text-success" style="font-size: 4rem;"></i>
+                </div>
+                <h1 class="display-5 fw-bold text-success">Cover Letter Generated!</h1>
+                <p class="lead text-muted">Your professional cover letter is ready for download</p>
+                <h3 class="text-center">Credits Remain: <%= userInfo?.generateLimit %></h3>
+            </div>
+
+            <!-- File Details Card -->
+            <div class="card border-success mb-4">
+                <div class="card-header bg-success text-white">
+                    <h5 class="mb-0"><i class="bi bi-file-earmark-pdf me-2"></i>Your Cover Letter</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row align-items-center">
+                        <div class="col-md-8">
+                            <h6 class="fw-bold mb-2"><%= fileDoc.fileName %></h6>
+                            <div class="text-muted mb-2">
+                                <small>
+                                    <i class="bi bi-building me-1"></i><%= fileDoc.companyName %> •
+                                    <i class="bi bi-briefcase me-1"></i><%= fileDoc.jobTitle %>
+                                </small>
+                            </div>
+                            <div class="text-muted">
+                                <small>
+                                    <i class="bi bi-calendar me-1"></i>Created: <%= fileDoc.createdAt.toLocaleDateString() %> •
+                                    <i class="bi bi-file-earmark me-1"></i>Size: <%= Math.round(fileDoc.fileSize / 1024) %> KB
+                                    <% if (fileDoc.downloadCount > 0) { %>
+                                        • <i class="bi bi-download me-1"></i>Downloaded: <%= fileDoc.downloadCount %> time<%= fileDoc.downloadCount === 1 ? '' : 's' %>
+                                    <% } %>
+                                </small>
+                            </div>
+                        </div>
+                        <div class="col-md-4 text-center">
+                            <div class="mb-3">
+                                <i class="bi bi-file-earmark-pdf text-danger" style="font-size: 3rem;"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Download Section -->
+            <div class="text-center mb-5">
+                <a href="/download/<%= fileDoc.fileId %>" class="btn btn-success btn-lg px-5 me-3" id="downloadBtn">
+                    <i class="bi bi-download me-2"></i>Download Your Cover Letter
+                </a>
+                <button type="button" class="btn btn-outline-primary" onclick="copyDownloadLink()">
+                    <i class="bi bi-clipboard me-2"></i>Copy Link
+                </button>
+            </div>
+
+            <!-- Quick Actions -->
+            <div class="row g-3 mb-5">
+                <div class="col-md-4">
+                    <div class="card h-100 border-0 bg-light">
+                        <div class="card-body text-center">
+                            <i class="bi bi-plus-circle text-primary mb-3" style="font-size: 2rem;"></i>
+                            <h6 class="fw-bold">Generate Another</h6>
+                            <p class="small text-muted mb-3">Create a cover letter for a different job</p>
+                            <a href="/generate" class="btn btn-outline-primary btn-sm">Start New</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card h-100 border-0 bg-light">
+                        <div class="card-body text-center">
+                            <i class="bi bi-pencil-square text-warning mb-3" style="font-size: 2rem;"></i>
+                            <h6 class="fw-bold">Edit This Letter</h6>
+                            <p class="small text-muted mb-3">Make changes to this cover letter</p>
+                            <a href="/generate/<%= fileDoc.binId %>" class="btn btn-outline-warning btn-sm">Edit</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card h-100 border-0 bg-light">
+                        <div class="card-body text-center">
+                            <i class="bi bi-folder text-info mb-3" style="font-size: 2rem;"></i>
+                            <h6 class="fw-bold">View All Letters</h6>
+                            <p class="small text-muted mb-3">Access your previous cover letters</p>
+                            <a href="/dashboard" class="btn btn-outline-info btn-sm">Dashboard</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tips Section -->
+            <div class="card bg-primary text-white">
+                <div class="card-body">
+                    <h5 class="fw-bold mb-3">
+                        <i class="bi bi-lightbulb me-2"></i>Next Steps
+                    </h5>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <ul class="list-unstyled mb-0">
+                                <li class="mb-2">
+                                    <i class="bi bi-check-circle me-2"></i>
+                                    Review the cover letter before sending
+                                </li>
+                                <li class="mb-2">
+                                    <i class="bi bi-check-circle me-2"></i>
+                                    Customize the greeting if you know the hiring manager's name
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
+                            <ul class="list-unstyled mb-0">
+                                <li class="mb-2">
+                                    <i class="bi bi-check-circle me-2"></i>
+                                    Save a copy for your records
+                                </li>
+                                <li class="mb-0">
+                                    <i class="bi bi-check-circle me-2"></i>
+                                    Follow up on your application after 1-2 weeks
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Track download clicks
+    document.getElementById('downloadBtn').addEventListener('click', function() {
+        // Could add analytics tracking here
+        console.log('Cover letter downloaded');
+    });
+});
+
+function copyDownloadLink() {
+    const fileId = '<%= fileDoc.fileId %>';
+    const downloadUrl = `${window.location.origin}/download/${fileId}`;
+    
+    navigator.clipboard.writeText(downloadUrl).then(function() {
+        // Show success feedback
+        const btn = event.target.closest('button');
+        const originalText = btn.innerHTML;
+        
+        btn.innerHTML = '<i class="bi bi-check me-2"></i>Copied!';
+        btn.classList.remove('btn-outline-primary');
+        btn.classList.add('btn-success');
+        
+        setTimeout(() => {
+            btn.innerHTML = originalText;
+            btn.classList.remove('btn-success');
+            btn.classList.add('btn-outline-primary');
+        }, 2000);
+    }).catch(function(err) {
+        alert('Failed to copy link: ' + err.message);
+    });
+}
+
+// Auto-scroll to download button after page load
+setTimeout(function() {
+    document.getElementById('downloadBtn').scrollIntoView({
+        behavior: 'smooth',
+        block: 'center'
+    });
+}, 1000);
+</script>

@@ -1,0 +1,236 @@
+<div class="container py-5">
+    <!-- Admin Header -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <h1 class="display-6 fw-bold">Admin Dashboard</h1>
+                    <p class="text-muted">Manage job posts and view analytics</p>
+                </div>
+                <div>
+                    <a href="/admin/jobs/new" class="btn btn-primary">
+                        <i class="bi bi-plus-circle me-2"></i>Post New Job
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Stats Cards -->
+    <div class="row g-4 mb-5">
+        <div class="col-md-3">
+            <div class="card bg-primary text-white">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h3 class="fw-bold mb-0"><%= stats.totalJobs %></h3>
+                            <small>Total Jobs</small>
+                        </div>
+                        <i class="bi bi-briefcase" style="font-size: 2rem; opacity: 0.5;"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card bg-success text-white">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h3 class="fw-bold mb-0"><%= stats.activeJobs %></h3>
+                            <small>Active Jobs</small>
+                        </div>
+                        <i class="bi bi-check-circle" style="font-size: 2rem; opacity: 0.5;"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card bg-info text-white">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h3 class="fw-bold mb-0"><%= stats.totalViews %></h3>
+                            <small>Total Views</small>
+                        </div>
+                        <i class="bi bi-eye" style="font-size: 2rem; opacity: 0.5;"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card bg-warning text-white">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h3 class="fw-bold mb-0"><%= stats.totalApplications %></h3>
+                            <small>Applications</small>
+                        </div>
+                        <i class="bi bi-file-text" style="font-size: 2rem; opacity: 0.5;"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Jobs Table -->
+    <div class="card">
+        <div class="card-header">
+            <h5 class="mb-0">All Jobs</h5>
+        </div>
+        <div class="card-body">
+            <% if (jobs && jobs.length > 0) { %>
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Job Title</th>
+                                <th>Company</th>
+                                <th>Location</th>
+                                <th>Type</th>
+                                <th>Views</th>
+                                <th>Applications</th>
+                                <th>Status</th>
+                                <th>Posted</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% jobs.forEach(job => { %>
+                                <tr>
+                                    <td>
+                                        <strong><%= job.jobTitle %></strong>
+                                    </td>
+                                    <td><%= job.companyName %></td>
+                                    <td><%= job.location %></td>
+                                    <td>
+                                        <span class="badge bg-secondary"><%= job.jobType %></span>
+                                    </td>
+                                    <td><%= job.views %></td>
+                                    <td><%= job.applications %></td>
+                                    <td>
+                                        <% if (job.isActive) { %>
+                                            <span class="badge bg-success">Active</span>
+                                        <% } else { %>
+                                            <span class="badge bg-danger">Inactive</span>
+                                        <% } %>
+                                    </td>
+                                    <td>
+                                        <small class="text-muted">
+                                            <%= new Date(job.createdAt).toLocaleDateString() %>
+                                        </small>
+                                    </td>
+                                    <td>
+                                        <div class="btn-group btn-group-sm" role="group">
+                                            <a href="/job/<%= job.slug %>" class="btn btn-outline-info" target="_blank" title="View Job">
+                                                <i class="bi bi-eye"></i>
+                                            </a>
+                                            <a href="/admin/jobs/<%= job._id %>/edit" class="btn btn-outline-primary" title="Edit Job">
+                                                <i class="bi bi-pencil"></i>
+                                            </a>
+                                            <button class="btn btn-outline-warning" onclick="toggleJobStatus('<%= job._id %>')" title="Toggle Status">
+                                                <i class="bi bi-toggle-<%= job.isActive ? 'on' : 'off' %>"></i>
+                                            </button>
+                                            <button class="btn btn-outline-danger" onclick="deleteJob('<%= job._id %>', '<%= job.jobTitle %>')" title="Delete Job">
+                                                <i class="bi bi-trash"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            <% }); %>
+                        </tbody>
+                    </table>
+                </div>
+            <% } else { %>
+                <div class="text-center py-5">
+                    <i class="bi bi-briefcase text-muted" style="font-size: 3rem;"></i>
+                    <h4 class="text-muted mt-3">No jobs posted yet</h4>
+                    <p class="text-muted">Start by posting your first job!</p>
+                    <a href="/admin/jobs/new" class="btn btn-primary">Post New Job</a>
+                </div>
+            <% } %>
+        </div>
+    </div>
+</div>
+
+<!-- Hidden Alert for Messages -->
+<div id="adminMessageArea" class="position-fixed top-0 end-0 p-3" style="z-index: 1050; display: none;">
+    <div id="adminAlert" class="alert alert-dismissible fade show" role="alert">
+        <span id="adminAlertText"></span>
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+</div>
+
+<script>
+    // Toggle job status
+    async function toggleJobStatus(jobId) {
+        try {
+            const response = await fetch(`/admin/jobs/${jobId}/toggle`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            });
+            
+            const result = await response.json();
+            
+            if (result.success) {
+                showAdminMessage(result.message, 'success');
+                // Reload page to reflect changes
+                setTimeout(() => window.location.reload(), 1500);
+            } else {
+                showAdminMessage(result.error || 'Failed to toggle job status', 'error');
+            }
+        } catch (error) {
+            console.error('Toggle error:', error);
+            showAdminMessage('Network error occurred', 'error');
+        }
+    }
+    
+    // Delete job
+    async function deleteJob(jobId, jobTitle) {
+        if (!confirm(`Are you sure you want to delete "${jobTitle}"? This action cannot be undone.`)) {
+            return;
+        }
+        
+        try {
+            const response = await fetch(`/admin/jobs/${jobId}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            });
+            
+            const result = await response.json();
+            
+            if (result.success) {
+                showAdminMessage(result.message, 'success');
+                // Reload page to reflect changes
+                setTimeout(() => window.location.reload(), 1500);
+            } else {
+                showAdminMessage(result.error || 'Failed to delete job', 'error');
+            }
+        } catch (error) {
+            console.error('Delete error:', error);
+            showAdminMessage('Network error occurred', 'error');
+        }
+    }
+    
+    // Show admin messages
+    function showAdminMessage(text, type) {
+        const messageArea = document.getElementById('adminMessageArea');
+        const alert = document.getElementById('adminAlert');
+        const alertText = document.getElementById('adminAlertText');
+        
+        // Set alert type
+        alert.className = `alert alert-${type === 'error' ? 'danger' : 'success'} alert-dismissible fade show`;
+        alertText.textContent = text;
+        
+        // Show message
+        messageArea.style.display = 'block';
+        
+        // Auto hide after 5 seconds
+        setTimeout(() => {
+            messageArea.style.display = 'none';
+        }, 5000);
+    }
+</script>

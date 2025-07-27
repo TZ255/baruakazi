@@ -1,0 +1,191 @@
+<!-- Flash Messages -->
+<%- include('partials/messages') %>
+
+<!-- Hero Section -->
+<section class="hero-section">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                <h1 class="display-4 fw-bold">Tengeneza Barua ya Kazi Bure Online</h1>
+                <p class="lead">Unda barua ya kazi (Cover Letter) yenye mfumo mzuri na wa kipekee kwa sekunde chache kwa
+                    kutumia AI. Jitofautishe na
+                    wengine na upate kazi ya ndoto yako ndani na nje ya Tanzania.</p>
+                <div class="d-flex flex-column flex-sm-row gap-3">
+                    <% if (user) { %>
+                    <a href="/generate" class="btn btn-light btn-hero">
+                        <i class="bi bi-file-text me-2"></i>Tengeneza Sasa
+                    </a>
+                    <% } else { %>
+                    <a href="/auth/signup" class="btn btn-light btn-hero">
+                        <i class="bi bi-person-plus me-2"></i>Anza Bure
+                    </a>
+                    <a href="/auth/login" class="btn btn-outline-light btn-hero">
+                        <i class="bi bi-box-arrow-in-right me-2"></i>Ingia
+                    </a>
+                    <% } %>
+                </div>
+            </div>
+            <div class="col-lg-6 text-center">
+                <div class="hero-image mt-5 mt-lg-0">
+                    <i class="bi bi-file-earmark-text text-white" style="font-size: 12rem; opacity: 0.8;"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Features Section -->
+<section class="py-5">
+    <div class="container">
+        <div class="row text-center mb-5">
+            <div class="col-lg-8 mx-auto">
+                <h2 class="display-5 fw-bold mb-3">Jinsi Inavyofanya Kazi</h2>
+                <p class="lead text-muted">Hatua tatu rahisi kuunda barua ya kazi (cover letter) bora.</p>
+            </div>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="card feature-card h-100 text-center p-4">
+                    <div class="feature-icon bg-primary text-white mx-auto">
+                        <i class="bi bi-cloud-upload"></i>
+                    </div>
+                    <h4 class="fw-bold">1. Pakia CV Yako</h4>
+                    <p class="text-muted">Pakia CV au wasifu wako uliopo kwa muundo wa PDF. Mfumo wetu utachambua
+                        taarifa zako muhimu moja kwa moja.</p>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card feature-card h-100 text-center p-4">
+                    <div class="feature-icon bg-success text-white mx-auto">
+                        <i class="bi bi-briefcase"></i>
+                    </div>
+                    <h4 class="fw-bold">2. Weka Maelezo ya Kazi</h4>
+                    <p class="text-muted">Toa jina la nafasi, kampuni na maelezo ya kazi. Tutaiunda barua yako kulingana
+                        na kazi hiyo.</p>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card feature-card h-100 text-center p-4">
+                    <div class="feature-icon bg-info text-white mx-auto">
+                        <i class="bi bi-download"></i>
+                    </div>
+                    <h4 class="fw-bold">3. Pakua & Tuma Maombi</h4>
+                    <p class="text-muted">Pata barua yako ya kazi bora katika muundo wa PDF, tayari kwa kutumwa
+                        pamoja na maombi ya kazi.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="d-flex flex-column col-lg-8 mx-auto gap-3 mt-5">
+            <% if (user) { %>
+            <a href="/generate" class="btn btn-light btn-hero border-primary">
+                <i class="bi bi-file-text me-2"></i>Tengeneza Sasa
+            </a>
+            <% } else { %>
+            <a href="/auth/signup" class="btn btn-light btn-hero border-primary">
+                <i class="bi bi-file-text me-2"></i>Tengeneza Sasa
+            </a>
+            <% } %>
+        </div>
+    </div>
+</section>
+
+<!-- Jobs Section -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="row text-center mb-5">
+            <div class="col-lg-8 mx-auto">
+                <h2 class="display-5 fw-bold mb-3">Baadi ya Fursa za Ajira</h2>
+                <p class="lead text-muted">Tengeneza barua za maombi kwa nafasi hizi za kazi Tanzania</p>
+            </div>
+        </div>
+
+        <div class="row g-4">
+            <!-- Sample job cards -->
+            <% if (jobs && jobs.length > 0) { %>
+            <% jobs.forEach(job => { %>
+            <div class="col-md-6 col-lg-4">
+                <div class="card job-card h-100">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-start mb-3">
+                            <h5 class="card-title fw-bold mb-0">
+                                <a href="/job/<%= job.slug %>" class="text-decoration-none text-dark">
+                                    <%= job.jobTitle %>
+                                </a>
+                            </h5>
+                        </div>
+                        <h6 class="card-subtitle mb-2 text-primary"><%= job.companyName %></h6>
+                        <p class="card-text text-muted">
+                            <%= job.description?.text.length > 150 ? job.description?.text.substring(0, 150) + '...' : job.description?.text %>
+                        </p>
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <small class="text-muted">
+                                <i class="bi bi-geo-alt me-1"></i><%= job.location %>
+                            </small>
+                            <small class="text-muted">
+                                <%= Math.floor((new Date() - job.createdAt) / (1000 * 60 * 60 * 24)) %> siku zilizopita
+                            </small>
+                        </div>
+
+                        <div class="mt-auto">
+                            <div class="row g-2">
+                                <div class="col-12">
+                                    <a href="/job/<%= job.slug %>" class="btn btn-outline-primary btn-sm w-100 mb-2">
+                                        <i class="bi bi-eye me-2"></i>Angalia Maelezo
+                                    </a>
+                                </div>
+                                <div class="col-12">
+                                    <% if (user) { %>
+                                    <a href="/generate?jobid=<%= job._id %>" class="btn btn-primary w-100">
+                                        <i class="bi bi-file-text me-2"></i>Tengeneza Barua ya Kazi
+                                    </a>
+                                    <% } else { %>
+                                    <a href="/auth/login" class="btn btn-primary w-100">
+                                        <i class="bi bi-box-arrow-in-right me-2"></i>Ingia Kutengeneza
+                                    </a>
+                                    <% } %>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <% }) %>
+            <% } %>
+        </div>
+
+        <div class="text-center mt-5">
+            <a href="/job" class="btn btn-outline-primary btn-lg">
+                <i class="bi bi-journal-text me-2"></i>Angalia Nafasi Zote za Kazi
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- FAQ Section -->
+<%- include('./partials/faq.ejs') %>
+
+<!-- CTA Section -->
+<section class="py-5 bg-primary text-white">
+    <div class="container text-center">
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <h2 class="display-5 fw-bold mb-3">Je! Uko Tayari Kupata Kazi Unayoitaka?</h2>
+                <p class="lead mb-4">Jiunge na maelfu ya wataalamu wa Kitanzania waliotumia BARUA KAZI kwa mafanikio
+                    kuandika barua bora za maombi ya kazi.</p>
+                <% if (!user) { %>
+                <a href="/auth/signup" class="btn btn-light btn-hero">
+                    <i class="bi bi-person-plus me-2"></i>Anza Kutengeneza Leo
+                </a>
+                <% } else { %>
+                <a href="/generate" class="btn btn-light btn-hero">
+                    <i class="bi bi-file-text me-2"></i>Andika Barua Yako
+                </a>
+                <% } %>
+            </div>
+        </div>
+    </div>
+</section>

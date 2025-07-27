@@ -1,0 +1,174 @@
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <div class="text-center mb-5">
+                <h1 class="display-5 fw-bold">Review & Edit Your Cover Letter</h1>
+                <p class="lead text-muted">Pitia na rekebisha chochote ambacho hakipo sawa kabla ya kutengeneza PDF file</p>
+            </div>
+
+            <form id="editForm" class="generate-form">
+                <!-- User Information Section -->
+                <div class="card mb-4">
+                    <div class="card-header bg-primary text-white">
+                        <h5 class="mb-0"><i class="bi bi-person me-2"></i>Personal Information</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row g-2">
+                            <div class="col-12">
+                                <div class="form-floating">
+                                    <input type="text" class="form-control form-control-sm" id="fullName" name="userInfo[fullName]"
+                                        value="<%= (binDoc.editedContent?.userInfo?.fullName || binDoc.openaiResponse?.userInfo?.fullName || '') %>"
+                                        required style="font-size: 14px;">
+                                    <label for="fullName" style="font-size: 13px;">Full Name</label>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-floating">
+                                    <input type="email" class="form-control form-control-sm" id="email" name="userInfo[email]"
+                                        value="<%= (binDoc.editedContent?.userInfo?.email || binDoc.openaiResponse?.userInfo?.email || '') %>"
+                                        required style="font-size: 14px;">
+                                    <label for="email" style="font-size: 13px;">Email Address</label>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-floating">
+                                    <input type="text" class="form-control form-control-sm" id="phone" name="userInfo[phone]"
+                                        value="<%= (binDoc.editedContent?.userInfo?.phone || binDoc.openaiResponse?.userInfo?.phone) || '' %>"
+                                        style="font-size: 14px;">
+                                    <label for="phone" style="font-size: 13px;">Phone Number</label>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-floating">
+                                    <input type="text" class="form-control form-control-sm" id="address" name="userInfo[address]"
+                                        value="<%= (binDoc.editedContent?.userInfo?.address || binDoc.openaiResponse?.userInfo?.address) || '' %>"
+                                        style="font-size: 14px;">
+                                    <label for="address" style="font-size: 13px;">Address</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Cover Letter Content -->
+                <div class="card mb-4">
+                    <div class="card-header bg-success text-white">
+                        <h5 class="mb-0"><i class="bi bi-file-text me-2"></i>Cover Letter Content</h5>
+                    </div>
+                    <div class="card-body">
+                        <!-- Greeting -->
+                        <div class="mb-3">
+                            <label for="greeting" class="form-label fw-bold" style="font-size: 13px;">Greeting</label>
+                            <input type="text" class="form-control form-control-sm" id="greeting" name="letterParts[greeting]"
+                                value="<%= (binDoc.editedContent?.letterParts?.greeting || binDoc.openaiResponse?.letterParts?.greeting || '') %>"
+                                style="font-size: 14px;">
+                        </div>
+
+                        <!-- Introduction -->
+                        <div class="mb-3">
+                            <label for="introduction" class="form-label fw-bold" style="font-size: 13px;">Introduction</label>
+                            <textarea class="form-control form-control-sm" id="introduction" name="letterParts[introduction]"
+                                rows="4" style="font-size: 14px;"><%= (binDoc.editedContent?.letterParts?.introduction || binDoc.openaiResponse?.letterParts?.introduction || '') %></textarea>
+                        </div>
+
+                        <!-- Body -->
+                        <div class="mb-3">
+                            <label for="body" class="form-label fw-bold" style="font-size: 13px;">Body</label>
+                            <textarea class="form-control form-control-sm" id="body" name="letterParts[body]"
+                                rows="10" style="font-size: 14px;"><%= (binDoc.editedContent?.letterParts?.body || binDoc.openaiResponse?.letterParts?.body || '') %></textarea>
+                        </div>
+
+                        <!-- Closing -->
+                        <div class="mb-3">
+                            <label for="closing" class="form-label fw-bold" style="font-size: 13px;">Closing</label>
+                            <textarea class="form-control form-control-sm" id="closing" name="letterParts[closing]"
+                                rows="4" style="font-size: 14px;"><%= (binDoc.editedContent?.letterParts?.closing || binDoc.openaiResponse?.letterParts?.closing || '') %></textarea>
+                        </div>
+
+                        <!-- Signature -->
+                        <div class="mb-3">
+                            <label for="signature" class="form-label fw-bold" style="font-size: 13px;">Signature</label>
+                            <textarea class="form-control form-control-sm" id="signature" name="letterParts[signature]"
+                                rows="3" style="font-size: 14px;"><%= (binDoc.editedContent?.letterParts?.signature || binDoc.openaiResponse?.letterParts?.signature || '') %></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="row g-2">
+                    <div class="col-12 col-sm-6">
+                        <button type="button" class="btn btn-outline-secondary w-100"
+                            onclick="window.location.href='/generate'">
+                            <i class="bi bi-arrow-left me-2"></i>Anza Upya
+                        </button>
+                    </div>
+                    <div class="col-12 col-sm-6">
+                        <button type="submit" class="btn btn-success w-100 py-2" id="finalizeBtn">
+                            <i class="bi bi-check-circle me-2"></i>Tengeneza PDF
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const binId = '<%= binDoc._id %>';
+    
+    // Form submission
+    document.getElementById('editForm').addEventListener('submit', handleFinalize);
+    
+    async function handleFinalize(e) {
+        e.preventDefault();
+
+        const btn = document.getElementById('finalizeBtn');
+        const originalText = btn.innerHTML;
+
+        btn.disabled = true;
+        btn.innerHTML = '<i class="bi bi-hourglass-split me-2"></i>Creating PDF...';
+
+        try {
+            const formData = new FormData(e.target);
+            const data = Object.fromEntries(formData.entries());
+
+            // Convert nested object notation to proper objects
+            const userInfo = {};
+            const letterParts = {};
+
+            Object.keys(data).forEach(key => {
+                if (key.startsWith('userInfo[')) {
+                    const field = key.match(/userInfo\[(.+)\]/)[1];
+                    userInfo[field] = data[key];
+                } else if (key.startsWith('letterParts[')) {
+                    const field = key.match(/letterParts\[(.+)\]/)[1];
+                    letterParts[field] = data[key];
+                }
+            });
+
+            const response = await fetch(`/generate/${binId}/finalize`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ userInfo, letterParts })
+            });
+
+            const result = await response.json();
+
+            if (result.success) {
+                window.location.href = result.redirectUrl;
+            } else {
+                throw new Error(result.error);
+            }
+
+        } catch (error) {
+            console.error('Finalization error:', error);
+            alert('Failed to create final cover letter: ' + error.message);
+            btn.disabled = false;
+            btn.innerHTML = originalText;
+        }
+    }
+});
+</script>
