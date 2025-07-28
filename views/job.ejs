@@ -1,8 +1,8 @@
 <div class="container py-5">
     <div class="row">
         <div class="col-12 text-center mb-5">
-            <h1 class="display-5 fw-bold">Job Tips & Opportunities</h1>
-            <p class="lead text-muted">Discover career advice and featured job opportunities in Tanzania</p>
+            <h1 class="display-5 fw-bold">Tips za Ajira & Nafasi za Kazi</h1>
+            <p class="lead text-muted">Pata tips za ajira na nafasi za kazi mbalimbali zilizoangaziwa</p>
         </div>
     </div>
 
@@ -12,17 +12,17 @@
             <ul class="nav nav-pills justify-content-center" id="jobTabs">
                 <li class="nav-item">
                     <a class="nav-link active" data-bs-toggle="pill" href="#featured-jobs">
-                        <i class="bi bi-briefcase me-2"></i>Featured Jobs
+                        <i class="bi bi-briefcase me-2"></i>Ajira Maarufu
                     </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" data-bs-toggle="pill" href="#career-tips">
-                        <i class="bi bi-lightbulb me-2"></i>Career Tips
+                        <i class="bi bi-lightbulb me-2"></i>Ushauri Wetu
                     </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" data-bs-toggle="pill" href="#interview-guide">
-                        <i class="bi bi-chat-dots me-2"></i>Interview Guide
+                        <i class="bi bi-chat-dots me-2"></i>Mwongozo wa Usaili
                     </a>
                 </li>
             </ul>
@@ -35,63 +35,65 @@
         <div class="tab-pane fade show active" id="featured-jobs">
             <div class="row g-4">
                 <% if (jobs && jobs.length > 0) { %>
-                    <% jobs.forEach(job => { %>
-                        <div class="col-md-6 col-lg-4">
-                            <div class="card job-card h-100">
-                                <div class="card-body">
-                                    <div class="d-flex justify-content-between align-items-start mb-3">
-                                        <h5 class="card-title fw-bold mb-0">
-                                            <a href="/job/<%= job.slug %>" class="text-decoration-none text-dark">
-                                                <%= job.jobTitle %>
-                                            </a>
-                                        </h5>
+                <% jobs.forEach(job => { %>
+                <div class="col-md-6 col-lg-4">
+                    <div class="card job-card h-100">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-start mb-3">
+                                <h5 class="card-title fw-bold mb-0">
+                                    <a href="/job/<%= job.slug %>" class="text-decoration-none text-dark">
+                                        <%= job.jobTitle %>
+                                    </a>
+                                </h5>
+                            </div>
+                            <h6 class="card-subtitle mb-2 text-primary">Nafasi ya Kazi - <%= job.companyName %></h6>
+                            <p class="card-text text-muted">
+                                <%= job.description?.text.length > 150 ? job.description?.text.substring(0, 150) + '...' : job.description?.text %>
+                            </p>
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <small class="text-muted">
+                                    <i class="bi bi-geo-alt me-1"></i><%= job.location %>
+                                </small>
+                                <small class="text-muted">
+                                    <%= Math.floor((new Date() - job.createdAt) / (1000 * 60 * 60 * 24)) %> siku
+                                    zilizopita
+                                </small>
+                            </div>
+
+                            <div class="mt-auto">
+                                <div class="row g-2">
+                                    <div class="col-12">
+                                        <a href="/job/<%= job.slug %>"
+                                            class="btn btn-outline-primary btn-sm w-100 mb-2">
+                                            <i class="bi bi-eye me-2"></i>Tazama Maelezo
+                                        </a>
                                     </div>
-                                    <h6 class="card-subtitle mb-2 text-primary"><%= job.companyName %></h6>
-                                    <p class="card-text text-muted">
-                                        <%= job.description?.text.length > 150 ? job.description?.text.substring(0, 150) + '...' : job.description?.text %>
-                                    </p>
-                                    <div class="d-flex justify-content-between align-items-center mb-3">
-                                        <small class="text-muted">
-                                            <i class="bi bi-geo-alt me-1"></i><%= job.location %>
-                                        </small>
-                                        <small class="text-muted">
-                                            <%= Math.floor((new Date() - job.createdAt) / (1000 * 60 * 60 * 24)) %> days ago
-                                        </small>
-                                    </div>
-                                    
-                                    <div class="mt-auto">
-                                        <div class="row g-2">
-                                            <div class="col-12">
-                                                <a href="/job/<%= job.slug %>" class="btn btn-outline-primary btn-sm w-100 mb-2">
-                                                    <i class="bi bi-eye me-2"></i>View Details
-                                                </a>
-                                            </div>
-                                            <div class="col-12">
-                                                <% if (user) { %>
-                                                    <a href="/generate?jobid=<%= job._id %>" class="btn btn-primary w-100">
-                                                        <i class="bi bi-file-text me-2"></i>Generate Cover Letter
-                                                    </a>
-                                                <% } else { %>
-                                                    <a href="/auth/login" class="btn btn-primary w-100">
-                                                        <i class="bi bi-box-arrow-in-right me-2"></i>Login to Generate
-                                                    </a>
-                                                <% } %>
-                                            </div>
-                                        </div>
+                                    <div class="col-12">
+                                        <% if (user) { %>
+                                        <a href="/generate?jobid=<%= job._id %>" class="btn btn-primary w-100">
+                                            <i class="bi bi-file-text me-2"></i>Tengeneza Barua
+                                        </a>
+                                        <% } else { %>
+                                        <a href="/auth/login" class="btn btn-primary w-100">
+                                            <i class="bi bi-box-arrow-in-right me-2"></i>Ingia ili Kutengeneza
+                                        </a>
+                                        <% } %>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    <% }); %>
-                <% } else { %>
-                    <!-- No jobs available -->
-                    <div class="col-12">
-                        <div class="text-center py-5">
-                            <i class="bi bi-briefcase text-muted" style="font-size: 4rem;"></i>
-                            <h4 class="text-muted mt-3">No Job Opportunities Available</h4>
-                            <p class="text-muted">Check back soon for new job postings!</p>
-                        </div>
                     </div>
+                </div>
+                <% }); %>
+                <% } else { %>
+                <!-- No jobs available -->
+                <div class="col-12">
+                    <div class="text-center py-5">
+                        <i class="bi bi-briefcase text-muted" style="font-size: 4rem;"></i>
+                        <h4 class="text-muted mt-3">Hakuna Fursa za Ajira Kwa Sasa</h4>
+                        <p class="text-muted">Rudi tena hivi karibuni kwa nafasi mpya za kazi!</p>
+                    </div>
+                </div>
                 <% } %>
             </div>
         </div>
@@ -102,28 +104,31 @@
                 <div class="col-md-6">
                     <div class="card h-100">
                         <div class="card-body">
-                            <h5 class="fw-bold">Writing the Perfect Cover Letter</h5>
-                            <p class="text-muted">Learn the essential elements that make cover letters stand out to Tanzanian employers.</p>
+                            <h5 class="fw-bold">Jinsi ya Kuandika Barua ya Maombi Bora</h5>
+                            <p class="text-muted">Jifunze mambo muhimu yanayovutia waajiri nchini Tanzania kupitia barua
+                                zako za maombi.</p>
                             <ul class="list-unstyled">
-                                <li><i class="bi bi-check text-success me-2"></i>Personalize for each job</li>
-                                <li><i class="bi bi-check text-success me-2"></i>Highlight relevant experience</li>
-                                <li><i class="bi bi-check text-success me-2"></i>Show cultural awareness</li>
-                                <li><i class="bi bi-check text-success me-2"></i>Keep it concise</li>
+                                <li><i class="bi bi-check text-success me-2"></i>Binafsisha kwa kila kazi</li>
+                                <li><i class="bi bi-check text-success me-2"></i>Elezea uzoefu unaohusiana</li>
+                                <li><i class="bi bi-check text-success me-2"></i>Onyesha uelewa wa utamaduni wa kampuni
+                                </li>
+                                <li><i class="bi bi-check text-success me-2"></i>Andika kwa kifupi na kwa uwazi</li>
                             </ul>
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="col-md-6">
                     <div class="card h-100">
                         <div class="card-body">
-                            <h5 class="fw-bold">Job Search Strategies in Tanzania</h5>
-                            <p class="text-muted">Effective approaches to finding job opportunities in the Tanzanian market.</p>
+                            <h5 class="fw-bold">Mbinu Bora za Kutafuta Kazi Tanzania</h5>
+                            <p class="text-muted">Njia madhubuti za kupata ajira katika soko la kazi la Tanzania.</p>
                             <ul class="list-unstyled">
-                                <li><i class="bi bi-check text-success me-2"></i>Network actively</li>
-                                <li><i class="bi bi-check text-success me-2"></i>Use online platforms</li>
-                                <li><i class="bi bi-check text-success me-2"></i>Attend job fairs</li>
-                                <li><i class="bi bi-check text-success me-2"></i>Contact companies directly</li>
+                                <li><i class="bi bi-check text-success me-2"></i>Fanya mawasiliano na watu wa kada yako
+                                </li>
+                                <li><i class="bi bi-check text-success me-2"></i>Tumia majukwaa ya mtandaoni</li>
+                                <li><i class="bi bi-check text-success me-2"></i>Hudhuria maonesho ya ajira</li>
+                                <li><i class="bi bi-check text-success me-2"></i>Wasiliana moja kwa moja na kampuni</li>
                             </ul>
                         </div>
                     </div>
@@ -137,29 +142,31 @@
                 <div class="col-md-6">
                     <div class="card h-100">
                         <div class="card-body">
-                            <h5 class="fw-bold">Common Interview Questions</h5>
-                            <p class="text-muted">Prepare for these frequently asked questions in Tanzanian job interviews.</p>
+                            <h5 class="fw-bold">Maswali ya Mara kwa Mara Katika Usaili</h5>
+                            <p class="text-muted">Jiandae kwa maswali haya ambayo huulizwa mara kwa mara katika usaili
+                                wa kazi Tanzania.</p>
                             <ul class="list-unstyled">
-                                <li class="mb-2"><strong>Q:</strong> Tell us about yourself</li>
-                                <li class="mb-2"><strong>Q:</strong> Why do you want to work here?</li>
-                                <li class="mb-2"><strong>Q:</strong> What are your strengths?</li>
-                                <li class="mb-2"><strong>Q:</strong> Where do you see yourself in 5 years?</li>
+                                <li class="mb-2"><strong>Q:</strong> Tuambie kuhusu wewe mwenyewe</li>
+                                <li class="mb-2"><strong>Q:</strong> Kwa nini unataka kufanya kazi hapa?</li>
+                                <li class="mb-2"><strong>Q:</strong> Ni nguvu gani ulizonazo?</li>
+                                <li class="mb-2"><strong>Q:</strong> Unaona uko wapi baada ya miaka 5?</li>
                             </ul>
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="col-md-6">
                     <div class="card h-100">
                         <div class="card-body">
-                            <h5 class="fw-bold">Interview Preparation Tips</h5>
-                            <p class="text-muted">Essential steps to prepare for your interview success.</p>
+                            <h5 class="fw-bold">Vidokezo vya Kujiandaa kwa Usaili</h5>
+                            <p class="text-muted">Hatua muhimu za kuhakikisha mafanikio yako katika usaili wa kazi.</p>
                             <ul class="list-unstyled">
-                                <li><i class="bi bi-check text-success me-2"></i>Research the company thoroughly</li>
-                                <li><i class="bi bi-check text-success me-2"></i>Practice your responses</li>
-                                <li><i class="bi bi-check text-success me-2"></i>Prepare thoughtful questions</li>
-                                <li><i class="bi bi-check text-success me-2"></i>Dress professionally</li>
-                                <li><i class="bi bi-check text-success me-2"></i>Arrive early</li>
+                                <li><i class="bi bi-check text-success me-2"></i>Fanya utafiti wa kina kuhusu kampuni
+                                </li>
+                                <li><i class="bi bi-check text-success me-2"></i>Jizoeze kujibu maswali ya usaili</li>
+                                <li><i class="bi bi-check text-success me-2"></i>Andaa maswali ya kuuliza</li>
+                                <li><i class="bi bi-check text-success me-2"></i>Vaa mavazi ya kitaalamu</li>
+                                <li><i class="bi bi-check text-success me-2"></i>Fika mapema kwenye usaili</li>
                             </ul>
                         </div>
                     </div>
@@ -167,4 +174,5 @@
             </div>
         </div>
     </div>
+
 </div>

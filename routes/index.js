@@ -14,7 +14,7 @@ router.get('/', async (req, res) => {
       .limit(3); // Limit to 3 jobs for better performance
 
     const site = {
-      title: 'BARUA KAZI - Tengeneza Barua ya Kazi Online | Haraka na Bora',
+      title: 'Tengeneza Barua ya Maombi ya Kazi Online | Bure, Haraka na Bora',
       description: `Tengeneza barua ya kazi yenye muundo mzuri na wa kipekee kwa kutumia AI. BARUA KAZI itakusaidia kuandika barua ya maombi ya kazi kwa haraka, bora, na inayolenga kazi unayotafuta Tanzania na kukuwezesha kuipakua katika PDF.`,
     }
 
