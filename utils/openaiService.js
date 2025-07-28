@@ -44,7 +44,7 @@ JOB INFORMATION:
 REQUIREMENTS:
 1. Extract user information from the CV file (name, email, phone, address)
 2. Create a professional cover letter with these sections:
-   - Greeting (Dear Hiring Manager or specific person if mentioned in job description)
+   - Greeting (Use name from job's 'reportTo' field if available, otherwise default to 'Dear Hiring Manager')
    - Introduction (brief introduction and position interest)
    - Body (2-3 paragraphs highlighting relevant experience and skills from the CV)
    - Closing (call to action and professional closing)

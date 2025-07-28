@@ -15,7 +15,6 @@ async function generateCoverLetterAsync(binId, jobInfo, cvFile) {
         fs.unlinkSync(tempFilePath);
 
         console.log('🎉 OpenAI generation completed successfully!');
-        console.log('Generated response:', openaiResponse);
 
         await Bin.findByIdAndUpdate(binId, {
             openaiResponse,
