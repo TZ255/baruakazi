@@ -18,7 +18,7 @@ const LetterSchema = z.object({
     title: z.string(),
     company: z.string(),
     location: z.string(),
-    reportTo: z.string().default('Hiring Manager')
+    reportTo: z.string().default('Hiring Manager') // Default to Hiring Manager if not specified
   }),
   letterParts: z.object({
     greeting: z.string(),
@@ -44,7 +44,7 @@ JOB INFORMATION:
 REQUIREMENTS:
 1. Extract user information from the CV file (name, email, phone, address)
 2. Create a professional cover letter with these sections:
-   - Greeting (Use name from job's 'reportTo' field if available, otherwise default to 'Dear Hiring Manager')
+   - Greeting: If the job's reportTo field contains a name, use it in the greeting (e.g., "Dear Ms. Johnson"). If not, generate a polite and professional generic greeting suitable for a cover letter (e.g., "Dear Hiring Manager", "To Whom It May Concern", etc.)
    - Introduction (brief introduction and position interest)
    - Body (2-3 paragraphs highlighting relevant experience and skills from the CV)
    - Closing (call to action and professional closing)
