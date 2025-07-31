@@ -5,34 +5,34 @@
             padding-left: 1rem;
             padding-right: 1rem;
         }
-
-        .form-floating>label {
+        
+        .form-floating > label {
             font-size: 0.875rem;
         }
-
+        
         .form-control:focus {
             box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
         }
-
+        
         .btn {
             border-radius: 0.5rem;
         }
-
+        
         .form-control {
             border-radius: 0.5rem;
         }
-
+        
         /* Ensure file input is touch-friendly */
         input[type="file"] {
             cursor: pointer;
         }
-
+        
         /* Better touch targets */
         .form-label {
             margin-bottom: 0.75rem;
         }
     }
-
+    
     /* Enhanced file input styling */
     input[type="file"]:focus {
         outline: 2px solid #0d6efd;
@@ -45,18 +45,17 @@
         <div class="col-lg-8">
             <div class="text-center mb-5">
                 <h1 class="display-5 fw-bold">Generate Your Cover Letter</h1>
-                <p class="lead text-muted">Weka CV yako na taarifa za kazi kutengeneza cover letter bora kulingana na
-                    kazi husika</p>
+                <p class="lead text-muted">Weka CV yako na taarifa za kazi kutengeneza cover letter bora kulingana na kazi husika</p>
                 <p class="lead text-muted">Credits: <%= userInfo?.generateLimit %></p>
-
+                
                 <!-- Job Pre-fill Notification -->
                 <% if (jobData) { %>
-                <div class="alert alert-info" role="alert">
-                    <i class="bi bi-info-circle me-2"></i>
-                    <strong>Job details pre-filled!</strong> We've automatically filled the form with details from the
-                    <strong><%= jobData.jobTitle %></strong> position at <strong><%= jobData.companyName %></strong>.
-                    You can modify any details as needed.
-                </div>
+                    <div class="alert alert-info" role="alert">
+                        <i class="bi bi-info-circle me-2"></i>
+                        <strong>Job details pre-filled!</strong> We've automatically filled the form with details from the 
+                        <strong><%= jobData.jobTitle %></strong> position at <strong><%= jobData.companyName %></strong>. 
+                        You can modify any details as needed.
+                    </div>
                 <% } %>
             </div>
 
@@ -68,8 +67,8 @@
                             <i class="bi bi-cloud-upload me-2"></i>Upload Your CV/Resume
                         </label>
                         <div class="position-relative">
-                            <input type="file" class="form-control form-control-lg" id="cv" name="cv" accept=".pdf"
-                                required style="min-height: 60px; padding: 1rem; font-size: 1rem;">
+                            <input type="file" class="form-control form-control-lg" id="cv" name="cv" accept=".pdf" required 
+                                   style="min-height: 60px; padding: 1rem; font-size: 1rem;">
                         </div>
                         <div class="form-text mt-2">
                             <i class="bi bi-info-circle me-1"></i>PDF format only, max 2MB
@@ -92,8 +91,8 @@
                         <div class="col-12 col-md-6">
                             <div class="form-floating">
                                 <input type="text" class="form-control" id="jobLocation" name="jobLocation"
-                                    placeholder="Dar es Salaam, Tanzania" value="<%= jobData ? jobData.location : '' %>"
-                                    required style="min-height: 58px;">
+                                    placeholder="Dar es Salaam, Tanzania" value="<%= jobData ? jobData.location : '' %>" required
+                                    style="min-height: 58px;">
                                 <label for="jobLocation">
                                     <i class="bi bi-geo-alt me-2"></i>Job Location
                                 </label>
@@ -103,8 +102,8 @@
                         <div class="col-12 col-md-6">
                             <div class="form-floating">
                                 <input type="text" class="form-control" id="companyName" name="companyName"
-                                    placeholder="TechCorp Tanzania" value="<%= jobData ? jobData.companyName : '' %>"
-                                    required style="min-height: 58px;">
+                                    placeholder="TechCorp Tanzania" value="<%= jobData ? jobData.companyName : '' %>" required
+                                    style="min-height: 58px;">
                                 <label for="companyName">
                                     <i class="bi bi-building me-2"></i>Company Name
                                 </label>
@@ -120,8 +119,7 @@
                         <textarea class="form-control" id="jobDescription" name="jobDescription" rows="6"
                             placeholder="Paste tangazo la kazi hapa..." required
                             style="min-height: 150px; resize: vertical;"><%- jobData ? jobData.description?.text : '' %></textarea>
-                        <div class="form-text mt-2">Copy and paste the job posting to help us tailor your cover letter
-                        </div>
+                        <div class="form-text mt-2">Copy and paste the job posting to help us tailor your cover letter</div>
                     </div>
 
                     <!-- Message Area -->
@@ -141,7 +139,7 @@
                     <!-- Submit Button -->
                     <div class="text-center">
                         <button type="submit" class="btn btn-primary btn-lg w-100 w-md-auto px-5" id="generateBtn"
-                            style="min-height: 60px; font-size: 1.1rem;">
+                                style="min-height: 60px; font-size: 1.1rem;">
                             <i class="bi bi-magic me-2"></i>Generate Cover Letter
                         </button>
                     </div>
@@ -189,7 +187,6 @@
         const form = document.getElementById('generateForm');
         const cvInput = document.getElementById('cv');
         const progressContainer = document.querySelector('.progress-container');
-        const submitBtn = form.querySelector('button[type="submit"]');
 
         // File upload handling
         cvInput.addEventListener('change', function (e) {
@@ -249,14 +246,14 @@
                 return;
             }
 
+            // Show loading state
+            const generateBtn = document.getElementById('generateBtn');
+            const originalBtnText = generateBtn.innerHTML;
+            generateBtn.disabled = true;
+            generateBtn.innerHTML = '<i class="bi bi-hourglass-split me-2"></i>Generating...';
+            progressContainer.style.display = 'block';
+
             try {
-                // Show loading state
-                const generateBtn = document.getElementById('generateBtn');
-                const originalBtnText = generateBtn.innerHTML;
-                generateBtn.disabled = true;
-                generateBtn.innerHTML = '<i class="bi bi-hourglass-split me-2"></i>Generating...';
-                progressContainer.style.display = 'block';
-                
                 // Create FormData with all form fields
                 const formData = new FormData();
                 formData.append('jobTitle', jobTitle);
@@ -289,7 +286,7 @@
                         window.location.href = '/payment';
                         return;
                     }
-
+                    
                     // Show error message
                     showMessage(result.error || 'Failed to generate cover letter. Please try again.', 'error');
 
