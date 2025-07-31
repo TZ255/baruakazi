@@ -242,6 +242,11 @@
                 return;
             }
 
+            if (typeof jobDescription !== 'string' || jobDescription.length > 7500) {
+                showMessage('Job description should not exceed 7,500 characters', 'error')
+                return;
+            }
+
             // Show loading state
             const generateBtn = document.getElementById('generateBtn');
             const originalBtnText = generateBtn.innerHTML;
@@ -308,7 +313,7 @@
             const messageArea = document.getElementById('messageArea');
             let alert = document.getElementById('messageAlert');
 
-            if (!alert || messageArea) return console.log('Alert or MessageArea not found');
+            if (!alert || !messageArea) return console.log('Alert or MessageArea not found');
 
             // Set alert type
             alert.className = `alert alert-${type === 'error' ? 'danger' : 'success'}`;

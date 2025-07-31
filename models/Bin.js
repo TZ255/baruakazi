@@ -34,7 +34,7 @@ const binSchema = new mongoose.Schema({
   jobDescription: {
     type: String,
     required: true,
-    maxlength: 5000
+    maxlength: 7500
   },
   // CV file information
   cvFileName: {

@@ -150,7 +150,7 @@ router.post('/generate', ensureAuthenticated, upload.single('cv'), handleMulterE
         message: 'Cover letter generated successfully!'
       });
     } catch (error) {
-      console.error('Generation failed:', error);
+      console.error('Generation failed:', error?.message);
       res.status(500).json({ error: 'Failed to generate cover letter. Please try again.' });
     }
   } catch (error) {

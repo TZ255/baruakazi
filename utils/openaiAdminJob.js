@@ -20,6 +20,8 @@ const systemInstructions = `You are a professional job description formatter. Yo
 - Use proper formatting such as "<ul>", "<li>", "<strong>", "<em>", "<a>", "<b>", "<i>" and "<u>" where appropriate to enhance readability.
 - Preserve the original meaning, but improve grammar, clarity, and flow.
 - Prioritize readability and structure while keeping the tone professional and informative.
+- The text version should be clean and free of HTML tags, suitable for plain text display.
+- The text version should not exceed 7500 characters.
 `
 
 const refineJobDescription = async (jobDescription) => {
