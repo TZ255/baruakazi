@@ -2,13 +2,14 @@ const express = require('express');
 const multer = require('multer');
 const { v4: uuidv4 } = require('uuid');
 const { ensureAuthenticated } = require('../middleware/auth');
-const PDFGenerator = require('../utils/pdfGenerator');
 const Bin = require('../models/Bin');
 const File = require('../models/File');
 const admin = require('../config/firebase');
 const generateCoverLetterAsync = require('../utils/generateCl');
 const User = require('../models/User');
 const Job = require('../models/Job');
+const generatePDF1stTemp = require('../utils/pdf-templates/1st-template');
+const generatePDF2ndTemp = require('../utils/pdf-templates/2nd-template');
 
 const router = express.Router();
 
@@ -27,9 +28,6 @@ const upload = multer({
     }
   }
 });
-
-// Initialize services
-const pdfGenerator = new PDFGenerator();
 
 // GET /generate - Show form page
 router.get('/generate', ensureAuthenticated, async (req, res) => {
@@ -239,7 +237,7 @@ router.post('/generate/:binId/finalize', ensureAuthenticated, async (req, res) =
     }
 
     // Generate PDF
-    const pdfBuffer = await pdfGenerator.generateCoverLetterPDF(finalContent);
+    const pdfBuffer = await generatePDF2ndTemp(finalContent);
 
     // Upload to Firebase Storage
     const fileId = uuidv4();
