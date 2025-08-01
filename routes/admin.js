@@ -65,6 +65,7 @@ router.post('/admin/jobs', ensureAdmin, async (req, res) => {
     const {
       jobTitle,
       location,
+      companyAddress,
       companyName,
       description,
       reportTo,
@@ -77,6 +78,7 @@ router.post('/admin/jobs', ensureAdmin, async (req, res) => {
     const job = new Job({
       jobTitle: jobTitle.trim(),
       location: location.trim(),
+      companyAddress: companyAddress.trim(),
       companyName: companyName.trim(),
       description: {
         html: formattedHTMLDescription.html,
@@ -130,6 +132,7 @@ router.put('/admin/jobs/:id', ensureAdmin, async (req, res) => {
     const {
       jobTitle,
       location,
+      companyAddress,
       companyName,
       description,
       reportTo,
@@ -151,8 +154,9 @@ router.put('/admin/jobs/:id', ensureAdmin, async (req, res) => {
     // Update job fields
     job.jobTitle = jobTitle.trim();
     job.location = location.trim();
+    job.companyAddress = companyAddress.trim();
     job.companyName = companyName.trim();
-    job.description = description;
+    job.description.text = description;
     job.reportTo = reportTo || 'Hiring Manager';
     job.jobType = jobType;
     job.salary = {

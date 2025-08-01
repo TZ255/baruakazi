@@ -18,6 +18,7 @@ const LetterSchema = z.object({
     title: z.string(),
     company: z.string(),
     location: z.string(),
+    companyAddress: z.string(),
     reportTo: z.string().default('Hiring Manager') // Default to Hiring Manager if not specified
   }),
   letterParts: z.object({
@@ -39,6 +40,7 @@ JOB INFORMATION:
 - Job Title: ${jobInfo.jobTitle}
 - Company Name: ${jobInfo.companyName}
 - Job Location: ${jobInfo.jobLocation}
+- Company Address: ${jobInfo.companyAddress}
 - Job Description: ${jobInfo.jobDescription}
 
 REQUIREMENTS:
@@ -68,6 +70,7 @@ RESPONSE FORMAT:
     "title": "${jobInfo.jobTitle}",
     "company": "${jobInfo.companyName}",
     "location": "${jobInfo.jobLocation}",
+    "companyAddress": "${jobInfo.companyAddress}",
     "reportTo": "extracted from job description or default to 'Hiring Manager'"
   },
   "letterParts": {

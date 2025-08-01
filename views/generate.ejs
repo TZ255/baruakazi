@@ -5,34 +5,34 @@
             padding-left: 1rem;
             padding-right: 1rem;
         }
-        
-        .form-floating > label {
+
+        .form-floating>label {
             font-size: 0.875rem;
         }
-        
+
         .form-control:focus {
             box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
         }
-        
+
         .btn {
             border-radius: 0.5rem;
         }
-        
+
         .form-control {
             border-radius: 0.5rem;
         }
-        
+
         /* Ensure file input is touch-friendly */
         input[type="file"] {
             cursor: pointer;
         }
-        
+
         /* Better touch targets */
         .form-label {
             margin-bottom: 0.75rem;
         }
     }
-    
+
     /* Enhanced file input styling */
     input[type="file"]:focus {
         outline: 2px solid #0d6efd;
@@ -45,17 +45,18 @@
         <div class="col-lg-8">
             <div class="text-center mb-5">
                 <h1 class="display-5 fw-bold">Generate Your Cover Letter</h1>
-                <p class="lead text-muted">Weka CV yako na taarifa za kazi kutengeneza cover letter bora kulingana na kazi husika</p>
+                <p class="lead text-muted">Weka CV yako na taarifa za kazi kutengeneza cover letter bora kulingana na
+                    kazi husika</p>
                 <p class="lead text-muted">Credits: <%= userInfo?.generateLimit %></p>
-                
+
                 <!-- Job Pre-fill Notification -->
                 <% if (jobData) { %>
-                    <div class="alert alert-info" role="alert">
-                        <i class="bi bi-info-circle me-2"></i>
-                        <strong>Job details pre-filled!</strong> We've automatically filled the form with details from the 
-                        <strong><%= jobData.jobTitle %></strong> position at <strong><%= jobData.companyName %></strong>. 
-                        You can modify any details as needed.
-                    </div>
+                <div class="alert alert-info" role="alert">
+                    <i class="bi bi-info-circle me-2"></i>
+                    <strong>Job details pre-filled!</strong> We've automatically filled the form with details from the
+                    <strong><%= jobData.jobTitle %></strong> position at <strong><%= jobData.companyName %></strong>.
+                    You can modify any details as needed.
+                </div>
                 <% } %>
             </div>
 
@@ -67,46 +68,60 @@
                             <i class="bi bi-cloud-upload me-2"></i>Upload Your CV/Resume
                         </label>
                         <div class="position-relative">
-                            <input type="file" class="form-control form-control-lg" id="cv" name="cv" accept=".pdf" required 
-                                   style="min-height: 60px; padding: 1rem; font-size: 1rem;">
+                            <input type="file" class="form-control form-control-lg" id="cv" name="cv" accept=".pdf"
+                                required style="min-height: 60px; padding: 1rem; font-size: 1rem;">
                         </div>
-                        <div class="form-text mt-2">
+                        <div class="form-text text-warning mt-2" style="font-size: 12px;">
                             <i class="bi bi-info-circle me-1"></i>PDF format only, max 2MB
                         </div>
                     </div>
 
                     <!-- Job Details Section -->
-                    <div class="mb-4">
-                        <div class="form-floating">
-                            <input type="text" class="form-control" id="jobTitle" name="jobTitle"
-                                placeholder="Software Developer" value="<%= jobData ? jobData.jobTitle : '' %>" required
-                                style="min-height: 58px;">
-                            <label for="jobTitle">
-                                <i class="bi bi-briefcase me-2"></i>Job Title
-                            </label>
-                        </div>
-                    </div>
-
                     <div class="row g-3 g-md-4 mb-4">
-                        <div class="col-12 col-md-6">
-                            <div class="form-floating">
-                                <input type="text" class="form-control" id="jobLocation" name="jobLocation"
-                                    placeholder="Dar es Salaam, Tanzania" value="<%= jobData ? jobData.location : '' %>" required
-                                    style="min-height: 58px;">
-                                <label for="jobLocation">
-                                    <i class="bi bi-geo-alt me-2"></i>Job Location
+                        <div class="col-12 col-md-6 mb-3 mb-md-0">
+                            <div class="">
+                                <label for="jobTitle" class="form-label">
+                                    <i class="bi bi-briefcase me-2"></i>Job Title
                                 </label>
+                                <input type="text" class="form-control" id="jobTitle" name="jobTitle"
+                                    placeholder="Software Developer" value="<%= jobData ? jobData.jobTitle : '' %>"
+                                    required style="min-height: 58px;">
                             </div>
                         </div>
 
-                        <div class="col-12 col-md-6">
-                            <div class="form-floating">
-                                <input type="text" class="form-control" id="companyName" name="companyName"
-                                    placeholder="TechCorp Tanzania" value="<%= jobData ? jobData.companyName : '' %>" required
-                                    style="min-height: 58px;">
-                                <label for="companyName">
+                        <div class="col-12 col-md-6 mb-3 mb-md-0">
+                            <div class="">
+                                <label for="companyName" class="form-label">
                                     <i class="bi bi-building me-2"></i>Company Name
                                 </label>
+                                <input type="text" class="form-control" id="companyName" name="companyName"
+                                    placeholder="TechCorp Tanzania" value="<%= jobData ? jobData.companyName : '' %>"
+                                    required style="min-height: 58px;">
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="row g-3 g-md-4 mb-4">
+                        <div class="col-12 col-md-6 mb-3 mb-md-0">
+                            <div class="">
+                                <label for="jobLocation" class="form-label">
+                                    <i class="bi bi-geo-alt-fill me-2"></i>Job Location
+                                </label>
+                                <input type="text" class="form-control" id="jobLocation" name="jobLocation"
+                                    placeholder="Dar es Salaam, Tanzania" value="<%= jobData ? jobData.location : '' %>"
+                                    required style="min-height: 58px;">
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-md-6 mb-3 mb-md-0">
+                            <div class="">
+                                <label for="companyAddress" class="form-label">
+                                    <i class="bi bi-envelope-paper me-2"></i>Company Address
+                                </label>
+                                <input type="text" class="form-control" id="companyAddress" name="companyAddress"
+                                    placeholder="P.O Box 666, Ocean Road" value="<%= jobData ? jobData.companyAddress : '' %>"
+                                    required style="min-height: 58px;">
                             </div>
                         </div>
                     </div>
@@ -119,7 +134,8 @@
                         <textarea class="form-control" id="jobDescription" name="jobDescription" rows="6"
                             placeholder="Paste tangazo la kazi hapa..." required
                             style="min-height: 150px; resize: vertical;"><%- jobData ? jobData.description?.text : '' %></textarea>
-                        <div class="form-text mt-2">Copy and paste the job posting to help us tailor your cover letter</div>
+                        <div class="form-text mt-2">Copy and paste the job posting to help us tailor your cover letter
+                        </div>
                     </div>
 
                     <!-- Message Area -->
@@ -139,7 +155,7 @@
                     <!-- Submit Button -->
                     <div class="text-center">
                         <button type="submit" class="btn btn-primary btn-lg w-100 w-md-auto px-5" id="generateBtn"
-                                style="min-height: 60px; font-size: 1.1rem;">
+                            style="min-height: 60px; font-size: 1.1rem;">
                             <i class="bi bi-magic me-2"></i>Generate Cover Letter
                         </button>
                     </div>
@@ -225,9 +241,10 @@
             const jobLocation = document.getElementById('jobLocation').value.trim();
             const companyName = document.getElementById('companyName').value.trim();
             const jobDescription = document.getElementById('jobDescription').value.trim();
+            const companyAddress = document.getElementById('companyAddress').value.trim()
 
             // Check all required fields
-            if (!jobTitle || !jobLocation || !companyName || !jobDescription) {
+            if (!jobTitle || !jobLocation || !companyName || !jobDescription || !companyAddress) {
                 showMessage('Please fill in all required fields.', 'error');
                 return;
             }
@@ -258,6 +275,7 @@
                 const formData = new FormData();
                 formData.append('jobTitle', jobTitle);
                 formData.append('jobLocation', jobLocation);
+                formData.append('companyAddress', companyAddress);
                 formData.append('companyName', companyName);
                 formData.append('jobDescription', jobDescription);
                 formData.append('cv', cvInput.files[0]);
@@ -286,7 +304,7 @@
                         window.location.href = '/payment';
                         return;
                     }
-                    
+
                     // Show error message
                     showMessage(result.error || 'Failed to generate cover letter. Please try again.', 'error');
 

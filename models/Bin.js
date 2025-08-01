@@ -25,6 +25,12 @@ const binSchema = new mongoose.Schema({
     trim: true,
     maxlength: 100
   },
+  companyAddress: {
+    type: String,
+    required: true,
+    trim: true,
+    maxlength: 150
+  },
   companyName: {
     type: String,
     required: true,
@@ -53,6 +59,7 @@ const binSchema = new mongoose.Schema({
       title: String,
       company: String,
       location: String,
+      companyAddress: String,
       reportTo: String // Added field for report to person
     },
     letterParts: {

@@ -43,16 +43,19 @@ function buildHeader(userInfo) {
 function buildCompanyInfo(jobInfo) {
   return [
     {
-      text: jobInfo?.reportTo || 'Hiring Manager',
+      text: jobInfo?.reportTo+',' || 'Hiring Manager,',
       margin: [0, 0, 0, 2]
     },
     {
-      text: jobInfo.company,
-      bold: true,
+      text: jobInfo.company+',',
       margin: [0, 0, 0, 2]
     },
     {
-      text: jobInfo.location,
+      text: jobInfo.companyAddress+',',
+      margin: [0, 0, 0, 2]
+    },
+    {
+      text: jobInfo.location+'.',
       margin: [0, 0, 0, 10]
     },
     {

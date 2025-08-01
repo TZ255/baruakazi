@@ -95,7 +95,7 @@ function handleMulterError(err, req, res, next) {
 // POST /generate - Process CV and generate cover letter
 router.post('/generate', ensureAuthenticated, upload.single('cv'), handleMulterError, async (req, res) => {
   try {
-    const { jobTitle, jobLocation, companyName, jobDescription } = req.body;
+    const { jobTitle, jobLocation, companyName, jobDescription, companyAddress } = req.body;
     const cvFile = req.file;
 
     // Validate user has enough generate limit
@@ -105,7 +105,7 @@ router.post('/generate', ensureAuthenticated, upload.single('cv'), handleMulterE
     }
 
     // Validate form data
-    if (!jobTitle || !jobLocation || !companyName || !jobDescription) {
+    if (!jobTitle || !jobLocation || !companyName || !jobDescription || !companyAddress) {
       return res.status(400).json({ error: 'All fields are required' });
     }
 
@@ -124,6 +124,7 @@ router.post('/generate', ensureAuthenticated, upload.single('cv'), handleMulterE
       userEmail: req.session.user.email,
       jobTitle,
       jobLocation,
+      companyAddress,
       companyName,
       jobDescription,
       cvFileName: cvFile.originalname,
@@ -138,7 +139,8 @@ router.post('/generate', ensureAuthenticated, upload.single('cv'), handleMulterE
         jobTitle,
         jobLocation,
         companyName,
-        jobDescription
+        jobDescription,
+        companyAddress
       }, cvFile);
 
       // Return success response with redirect URL
