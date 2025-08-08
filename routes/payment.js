@@ -129,7 +129,7 @@ router.post('/payment/webhook', async (req, res) => {
             if (!pymnt) return console.log(`${orderReference} order not found`);
 
             //check if is from mikekatips then grant the user
-            if (String(orderReference).startsWith('MTIPS-')) {
+            if (String(orderReference).startsWith('MTIPS')) {
                 let user = await MTipsUsersModel.findOne({ email: pymnt.userEmail })
                 if (!user) return console.log(`User to confirm ${orderReference} not found`);
 
