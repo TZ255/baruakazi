@@ -134,7 +134,7 @@ router.post('/payment/webhook', async (req, res) => {
                 if (!user) return console.log(`User to confirm ${orderReference} not found`);
 
                 const expDate = new Date();
-                expDate.setDate(expDate.getDate() + 7)
+                expDate.setMonth(expDate.getMonth() + 1);
                 user.isPaid = true
                 user.paidAt = new Date()
                 user.expiresAt = expDate
