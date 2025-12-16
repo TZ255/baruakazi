@@ -6,6 +6,7 @@ const { initiateClickPesaUSSDPush, checkPaymentStatus, generateCheckOutLink } = 
 const PaymentBin = require('../models/PaymentBin');
 const { ensureAdmin } = require('../middleware/admin');
 const MTipsUsersModel = require('../models/MTipsUsers');
+const { mikekaTipsPaymentWebhook } = require('../utils/mikekaTipsPayment');
 
 const router = express.Router();
 
@@ -128,20 +129,9 @@ router.post('/payment/webhook', async (req, res) => {
             let pymnt = await PaymentBin.findOne({ orderReference, paymentStatus: "PROCESSING" })
             if (!pymnt) return console.log(`${orderReference} order not found`);
 
-            //check if is from mikekatips then grant the user
+            //check if it is for mikekatips
             if (String(orderReference).startsWith('MTIPS')) {
-                let user = await MTipsUsersModel.findOne({ email: pymnt.userEmail })
-                if (!user) return console.log(`User to confirm ${orderReference} not found`);
-
-                const expDate = new Date();
-                expDate.setMonth(expDate.getMonth() + 1);
-                user.isPaid = true
-                user.paidAt = new Date()
-                user.expiresAt = expDate
-                await user.save()
-                pymnt.paymentStatus = 'CONFIRMED'
-                await pymnt.save()
-                return console.log('MikekaTips Order confirmed by webhook')
+                return mikekaTipsPaymentWebhook(orderReference, pymnt.userEmail)
             }
 
             let user = await User.findOne({ email: pymnt.userEmail })
