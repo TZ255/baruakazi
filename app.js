@@ -7,6 +7,7 @@ const mongoose = require('mongoose');
 const path = require('path');
 const expressLayouts = require('express-ejs-layouts');
 const methodOverride = require('method-override');
+const cors = require('cors');
 
 //routes
 const generateRoutes = require('./routes/generate');
@@ -29,6 +30,7 @@ app.use(expressLayouts);
 app.set('layout', 'layout');
 
 // Middleware
+app.use(cors());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());

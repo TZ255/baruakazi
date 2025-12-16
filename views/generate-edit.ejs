@@ -10,7 +10,7 @@
                 <!-- User Information Section -->
                 <div class="card mb-4">
                     <div class="card-header bg-primary text-white">
-                        <h5 class="mb-0"><i class="bi bi-person me-2"></i>Personal Information</h5>
+                        <h5 class="mb-0"><i class="fa-solid fa-user me-2"></i>Personal Information</h5>
                     </div>
                     <div class="card-body">
                         <div class="row g-2">
@@ -53,7 +53,7 @@
                 <!-- Cover Letter Content -->
                 <div class="card mb-4">
                     <div class="card-header bg-success text-white">
-                        <h5 class="mb-0"><i class="bi bi-file-text me-2"></i>Cover Letter Content</h5>
+                        <h5 class="mb-0"><i class="fa-solid fa-file-lines me-2"></i>Cover Letter Content</h5>
                     </div>
                     <div class="card-body">
                         <!-- Greeting -->
@@ -99,12 +99,12 @@
                     <div class="col-12 col-sm-6">
                         <button type="button" class="btn btn-outline-secondary w-100"
                             onclick="window.location.href='/generate'">
-                            <i class="bi bi-arrow-left me-2"></i>Anza Upya
+                            <i class="fa-solid fa-arrow-left me-2"></i>Anza Upya
                         </button>
                     </div>
                     <div class="col-12 col-sm-6">
                         <button type="submit" class="btn btn-success w-100 py-2" id="finalizeBtn">
-                            <i class="bi bi-check-circle me-2"></i>Tengeneza PDF
+                            <i class="fa-solid fa-circle-check me-2"></i>Tengeneza PDF
                         </button>
                     </div>
                 </div>
@@ -127,7 +127,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const originalText = btn.innerHTML;
 
         btn.disabled = true;
-        btn.innerHTML = '<i class="bi bi-hourglass-split me-2"></i>Creating PDF...';
+        btn.innerHTML = '<i class="fa-solid fa-hourglass-half me-2"></i>Creating PDF...';
 
         try {
             const formData = new FormData(e.target);

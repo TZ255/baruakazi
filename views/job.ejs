@@ -12,17 +12,17 @@
             <ul class="nav nav-pills justify-content-center" id="jobTabs">
                 <li class="nav-item">
                     <a class="nav-link active" data-bs-toggle="pill" href="#featured-jobs">
-                        <i class="bi bi-briefcase me-2"></i>Ajira Maarufu
+                        <i class="fa-solid fa-briefcase me-2"></i>Ajira Maarufu
                     </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" data-bs-toggle="pill" href="#career-tips">
-                        <i class="bi bi-lightbulb me-2"></i>Ushauri Wetu
+                        <i class="fa-solid fa-lightbulb me-2"></i>Ushauri Wetu
                     </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" data-bs-toggle="pill" href="#interview-guide">
-                        <i class="bi bi-chat-dots me-2"></i>Mwongozo wa Usaili
+                        <i class="fa-solid fa-comment-dots me-2"></i>Mwongozo wa Usaili
                     </a>
                 </li>
             </ul>
@@ -52,7 +52,7 @@
                             </p>
                             <div class="d-flex justify-content-between align-items-center mb-3">
                                 <small class="text-muted">
-                                    <i class="bi bi-geo-alt me-1"></i><%= job.location %>
+                                    <i class="fa-solid fa-location-dot me-1"></i><%= job.location %>
                                 </small>
                                 <small class="text-muted">
                                     <%= Math.floor((new Date() - job.createdAt) / (1000 * 60 * 60 * 24)) %> siku
@@ -65,17 +65,17 @@
                                     <div class="col-12">
                                         <a href="/job/<%= job.slug %>"
                                             class="btn btn-outline-primary btn-sm w-100 mb-2">
-                                            <i class="bi bi-eye me-2"></i>Tazama Maelezo
+                                            <i class="fa-solid fa-eye me-2"></i>Tazama Maelezo
                                         </a>
                                     </div>
                                     <div class="col-12">
                                         <% if (user) { %>
                                         <a href="/generate?jobid=<%= job._id %>" class="btn btn-primary w-100">
-                                            <i class="bi bi-file-text me-2"></i>Tengeneza Barua
+                                            <i class="fa-solid fa-file-lines me-2"></i>Tengeneza Barua
                                         </a>
                                         <% } else { %>
                                         <a href="/auth/login" class="btn btn-primary w-100">
-                                            <i class="bi bi-box-arrow-in-right me-2"></i>Ingia ili Kutengeneza
+                                            <i class="fa-solid fa-right-to-bracket me-2"></i>Ingia ili Kutengeneza
                                         </a>
                                         <% } %>
                                     </div>
@@ -89,7 +89,7 @@
                 <!-- No jobs available -->
                 <div class="col-12">
                     <div class="text-center py-5">
-                        <i class="bi bi-briefcase text-muted" style="font-size: 4rem;"></i>
+                        <i class="fa-solid fa-briefcase text-muted" style="font-size: 4rem;"></i>
                         <h4 class="text-muted mt-3">Hakuna Fursa za Ajira Kwa Sasa</h4>
                         <p class="text-muted">Rudi tena hivi karibuni kwa nafasi mpya za kazi!</p>
                     </div>
@@ -108,11 +108,11 @@
                             <p class="text-muted">Jifunze mambo muhimu yanayovutia waajiri nchini Tanzania kupitia barua
                                 zako za maombi.</p>
                             <ul class="list-unstyled">
-                                <li><i class="bi bi-check text-success me-2"></i>Binafsisha kwa kila kazi</li>
-                                <li><i class="bi bi-check text-success me-2"></i>Elezea uzoefu unaohusiana</li>
-                                <li><i class="bi bi-check text-success me-2"></i>Onyesha uelewa wa utamaduni wa kampuni
+                                <li><i class="fa-solid fa-check text-success me-2"></i>Binafsisha kwa kila kazi</li>
+                                <li><i class="fa-solid fa-check text-success me-2"></i>Elezea uzoefu unaohusiana</li>
+                                <li><i class="fa-solid fa-check text-success me-2"></i>Onyesha uelewa wa utamaduni wa kampuni
                                 </li>
-                                <li><i class="bi bi-check text-success me-2"></i>Andika kwa kifupi na kwa uwazi</li>
+                                <li><i class="fa-solid fa-check text-success me-2"></i>Andika kwa kifupi na kwa uwazi</li>
                             </ul>
                         </div>
                     </div>
@@ -124,11 +124,11 @@
                             <h5 class="fw-bold">Mbinu Bora za Kutafuta Kazi Tanzania</h5>
                             <p class="text-muted">Njia madhubuti za kupata ajira katika soko la kazi la Tanzania.</p>
                             <ul class="list-unstyled">
-                                <li><i class="bi bi-check text-success me-2"></i>Fanya mawasiliano na watu wa kada yako
+                                <li><i class="fa-solid fa-check text-success me-2"></i>Fanya mawasiliano na watu wa kada yako
                                 </li>
-                                <li><i class="bi bi-check text-success me-2"></i>Tumia majukwaa ya mtandaoni</li>
-                                <li><i class="bi bi-check text-success me-2"></i>Hudhuria maonesho ya ajira</li>
-                                <li><i class="bi bi-check text-success me-2"></i>Wasiliana moja kwa moja na kampuni</li>
+                                <li><i class="fa-solid fa-check text-success me-2"></i>Tumia majukwaa ya mtandaoni</li>
+                                <li><i class="fa-solid fa-check text-success me-2"></i>Hudhuria maonesho ya ajira</li>
+                                <li><i class="fa-solid fa-check text-success me-2"></i>Wasiliana moja kwa moja na kampuni</li>
                             </ul>
                         </div>
                     </div>
@@ -161,12 +161,12 @@
                             <h5 class="fw-bold">Vidokezo vya Kujiandaa kwa Usaili</h5>
                             <p class="text-muted">Hatua muhimu za kuhakikisha mafanikio yako katika usaili wa kazi.</p>
                             <ul class="list-unstyled">
-                                <li><i class="bi bi-check text-success me-2"></i>Fanya utafiti wa kina kuhusu kampuni
+                                <li><i class="fa-solid fa-check text-success me-2"></i>Fanya utafiti wa kina kuhusu kampuni
                                 </li>
-                                <li><i class="bi bi-check text-success me-2"></i>Jizoeze kujibu maswali ya usaili</li>
-                                <li><i class="bi bi-check text-success me-2"></i>Andaa maswali ya kuuliza</li>
-                                <li><i class="bi bi-check text-success me-2"></i>Vaa mavazi ya kitaalamu</li>
-                                <li><i class="bi bi-check text-success me-2"></i>Fika mapema kwenye usaili</li>
+                                <li><i class="fa-solid fa-check text-success me-2"></i>Jizoeze kujibu maswali ya usaili</li>
+                                <li><i class="fa-solid fa-check text-success me-2"></i>Andaa maswali ya kuuliza</li>
+                                <li><i class="fa-solid fa-check text-success me-2"></i>Vaa mavazi ya kitaalamu</li>
+                                <li><i class="fa-solid fa-check text-success me-2"></i>Fika mapema kwenye usaili</li>
                             </ul>
                         </div>
                     </div>

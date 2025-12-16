@@ -71,7 +71,7 @@
             <div class="payment-hero p-5 mb-5 text-center position-relative">
                 <div class="position-relative z-1">
                     <h1 class="display-5 fw-bold mb-3">
-                        <i class="bi bi-exclamation-triangle me-3"></i>Credits Zimekwisha!
+                        <i class="fa-solid fa-triangle-exclamation me-3"></i>Credits Zimekwisha!
                     </h1>
                     <p class="lead mb-0 opacity-90">
                         Malipo yako yamekwisha au huna credits za kutosha kutengeneza barua za kazi
@@ -83,7 +83,7 @@
             <div class="card border-0 shadow-lg">
                 <div class="card-header bg-gradient bg-light border-0 py-4 text-center">
                     <h3 class="fw-bold mb-1">
-                        <i class="bi bi-credit-card me-2 text-primary"></i>Lipa Kwa Mobile Money
+                        <i class="fa-solid fa-credit-card me-2 text-primary"></i>Lipa Kwa Mobile Money
                     </h3>
                     <p class="text-muted mb-0">Ingiza namba ya simu kulipia</p>
                 </div>
@@ -104,7 +104,7 @@
                                 <div class="row align-items-center">
                                     <div class="col-md-8">
                                         <h6 class="fw-bold mb-1">
-                                            <i class="bi bi-star-fill text-warning me-2"></i>Premium Plan - Mwezi 1
+                                            <i class="fa-solid fa-star text-warning me-2"></i>Premium Plan - Mwezi 1
                                         </h6>
                                         <div class="col-md-4 text-md-end">
                                             <div class="h4 fw-bold text-primary mb-0">Tsh. 4,999/= Tu.</div>
@@ -119,7 +119,7 @@
                         <!-- Phone Number Input -->
                         <div class="mb-4">
                             <label for="phoneNumber" class="form-label fw-bold fs-6">
-                                <i class="bi bi-phone me-2 text-success"></i>Namba ya Simu
+                                <i class="fa-solid fa-phone me-2 text-success"></i>Namba ya Simu
                             </label>
                             <div class="input-group input-group-lg">
                                 <span class="input-group-text bg-secondary fw-bold text-light border-success fs-5">
@@ -131,7 +131,7 @@
                                     style="letter-spacing: 2px;">
                             </div>
                             <div class="form-text mt-2">
-                                <i class="bi bi-info-circle me-1"></i>
+                                <i class="fa-solid fa-circle-info me-1"></i>
                                 Tigo, Airtel na Halotel Pekee.
                             </div>
                         </div>
@@ -140,7 +140,7 @@
                         <div class="text-center mb-4">
                             <button type="submit" class="btn btn-success btn-lg px-5 py-3 rounded-pill shadow"
                                 id="paymentSubmitBtn">
-                                <i class="bi bi-send me-2"></i>Tuma Ombi la Malipo
+                                <i class="fa-solid fa-paper-plane me-2"></i>Tuma Ombi la Malipo
                             </button>
                         </div>
                     </form>
@@ -151,10 +151,10 @@
             <div class="text-center mt-5">
                 <div class="d-flex flex-column flex-md-row gap-3 justify-content-center">
                     <a href="/generate" class="btn btn-outline-secondary btn-lg px-4">
-                        <i class="bi bi-arrow-left me-2"></i>Rudi Nyuma
+                        <i class="fa-solid fa-arrow-left me-2"></i>Rudi Nyuma
                     </a>
                     <a href="/dashboard" class="btn btn-outline-primary btn-lg px-4">
-                        <i class="bi bi-speedometer2 me-2"></i>Dashboard
+                        <i class="fa-solid fa-gauge me-2"></i>Dashboard
                     </a>
                 </div>
             </div>
@@ -302,7 +302,7 @@
         
         // Reset header to waiting state
         header.className = 'modal-header bg-warning text-white border-0';
-        title.innerHTML = '<i class="bi bi-clock me-2"></i>Subiri Malipo';
+        title.innerHTML = '<i class="fa-solid fa-clock me-2"></i>Subiri Malipo';
         
         // Remove close button
         const closeBtn = header.querySelector('.btn-close');
@@ -312,7 +312,7 @@
         body.innerHTML = `
             <div class="text-center">
                 <div class="mb-4">
-                    <i class="bi bi-phone text-warning" style="font-size: 3rem;"></i>
+                    <i class="fa-solid fa-phone text-warning" style="font-size: 3rem;"></i>
                 </div>
                 <h6 class="fw-bold mb-3">Inasubiri malipo...</h6>
                 <p class="text-muted mb-4">
@@ -320,7 +320,7 @@
                 </p>
                 <div class="mb-3">
                     <div class="alert alert-info" role="alert">
-                        <i class="bi bi-clock me-2"></i>
+                        <i class="fa-solid fa-clock me-2"></i>
                         <strong>Muda uliosalia: <span id="paymentTimer">3:00</span></strong>
                     </div>
                 </div>
@@ -336,7 +336,7 @@
         footer.innerHTML = `
             <div class="d-flex justify-content-center w-100">
                 <button type="button" class="btn btn-outline-secondary" onclick="cancelPaymentProcess()">
-                    <i class="bi bi-x-circle me-2"></i>Ghairi
+                    <i class="fa-solid fa-circle-xmark me-2"></i>Ghairi
                 </button>
             </div>
         `;
@@ -422,7 +422,7 @@
         const footer = modal.querySelector('.modal-footer');
         
         header.className = 'modal-header bg-success text-white border-0';
-        title.innerHTML = '<i class="bi bi-check-circle me-2"></i>Malipo Yamefanikiwa!';
+        title.innerHTML = '<i class="fa-solid fa-circle-check me-2"></i>Malipo Yamefanikiwa!';
         
         // Remove close button
         const closeBtn = header.querySelector('.btn-close');
@@ -431,14 +431,14 @@
         body.innerHTML = `
             <div class="text-center">
                 <div class="mb-4">
-                    <i class="bi bi-check-circle-fill text-success" style="font-size: 4rem;"></i>
+                    <i class="fa-solid fa-circle-check text-success" style="font-size: 4rem;"></i>
                 </div>
                 <h4 class="fw-bold text-success mb-3">Hongera!</h4>
                 <p class="mb-4">
                     Malipo yako yamefanikiwa. Credits zako zimepandishwa na unaweza kuanza kutengeneza barua za kazi.
                 </p>
                 <div class="alert alert-success" role="alert">
-                    <i class="bi bi-info-circle me-2"></i>
+                    <i class="fa-solid fa-circle-info me-2"></i>
                     Utapelekwa ukurasa wa kutengeneza barua za kazi baada ya sekunde <span id="redirectTimer">5</span>
                 </div>
             </div>
@@ -447,7 +447,7 @@
         footer.innerHTML = `
             <div class="d-flex justify-content-center w-100">
                 <button type="button" class="btn btn-success btn-lg" onclick="window.location.href='/generate'">
-                    <i class="bi bi-arrow-right me-2"></i>Tengeneza Barua
+                    <i class="fa-solid fa-arrow-right me-2"></i>Tengeneza Barua
                 </button>
             </div>
         `;
@@ -476,7 +476,7 @@
         const footer = modal.querySelector('.modal-footer');
         
         header.className = 'modal-header bg-danger text-white border-0';
-        title.innerHTML = '<i class="bi bi-x-circle me-2"></i>Malipo Yameshindikana';
+        title.innerHTML = '<i class="fa-solid fa-circle-xmark me-2"></i>Malipo Yameshindikana';
         
         // Remove close button
         const closeBtn = header.querySelector('.btn-close');
@@ -485,7 +485,7 @@
         body.innerHTML = `
             <div class="text-center">
                 <div class="mb-4">
-                    <i class="bi bi-x-circle-fill text-danger" style="font-size: 4rem;"></i>
+                    <i class="fa-solid fa-circle-xmark text-danger" style="font-size: 4rem;"></i>
                 </div>
                 <h6 class="fw-bold mb-3">Malipo yameshindikana</h6>
                 <p class="text-muted mb-4">
@@ -497,7 +497,7 @@
         footer.innerHTML = `
             <div class="d-flex justify-content-center w-100">
                 <button type="button" class="btn btn-danger" onclick="window.location.href='/payment'">
-                    <i class="bi bi-arrow-clockwise me-2"></i>ANZA UPYA
+                    <i class="fa-solid fa-arrow-rotate-right me-2"></i>ANZA UPYA
                 </button>
             </div>
         `;
@@ -511,7 +511,7 @@
         const footer = modal.querySelector('.modal-footer');
         
         header.className = 'modal-header bg-warning text-white border-0';
-        title.innerHTML = '<i class="bi bi-clock me-2"></i>Muda Umeisha';
+        title.innerHTML = '<i class="fa-solid fa-clock me-2"></i>Muda Umeisha';
         
         // Remove close button
         const closeBtn = header.querySelector('.btn-close');
@@ -520,14 +520,14 @@
         body.innerHTML = `
             <div class="text-center">
                 <div class="mb-4">
-                    <i class="bi bi-clock-fill text-warning" style="font-size: 4rem;"></i>
+                    <i class="fa-solid fa-clock text-warning" style="font-size: 4rem;"></i>
                 </div>
                 <h6 class="fw-bold mb-3">Muda wa malipo umeisha</h6>
                 <p class="text-muted mb-4">
                     Ombi la malipo limetumwa kwenye namba yako ya simu kwa dakika 3 zilizopita. Ikiwa hujaweza kulipa, weka PIN yako ili kuthibitisha au kama tayari umelipa, balance yako itapandishwa.
                 </p>
                 <div class="alert alert-info" role="alert">
-                    <i class="bi bi-info-circle me-2"></i>
+                    <i class="fa-solid fa-circle-info me-2"></i>
                     Ikiwa haujaweza kulipa, bonyeza "ANZA UPYA" kujaribu tena.
                 </div>
             </div>
@@ -536,7 +536,7 @@
         footer.innerHTML = `
             <div class="d-flex justify-content-center w-100">
                 <button type="button" class="btn btn-warning" onclick="window.location.href='/payment'">
-                    <i class="bi bi-arrow-clockwise me-2"></i>ANZA UPYA
+                    <i class="fa-solid fa-arrow-rotate-right me-2"></i>ANZA UPYA
                 </button>
             </div>
         `;

@@ -22,6 +22,10 @@ const paymentSchema = new mongoose.Schema({
         type: String,
         required: true,
         enum: ["PROCESSING", "PENDING", "SUCCESS", "FAILED", "CONFIRMED"]
+    },
+    server: {
+        type: String,
+        default: "BARUAKAZI"
     }
 },
     {timestamps: true}

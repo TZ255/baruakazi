@@ -52,7 +52,7 @@
                 <!-- Job Pre-fill Notification -->
                 <% if (jobData) { %>
                 <div class="alert alert-info" role="alert">
-                    <i class="bi bi-info-circle me-2"></i>
+                    <i class="fa-solid fa-circle-info me-2"></i>
                     <strong>Job details pre-filled!</strong> We've automatically filled the form with details from the
                     <strong><%= jobData.jobTitle %></strong> position at <strong><%= jobData.companyName %></strong>.
                     You can modify any details as needed.
@@ -65,14 +65,14 @@
                     <!-- CV Upload Section -->
                     <div class="mb-4">
                         <label for="cv" class="form-label fw-bold fs-6">
-                            <i class="bi bi-cloud-upload me-2"></i>Upload Your CV/Resume
+                            <i class="fa-solid fa-cloud-arrow-up me-2"></i>Upload Your CV/Resume
                         </label>
                         <div class="position-relative">
                             <input type="file" class="form-control form-control-lg" id="cv" name="cv" accept=".pdf"
                                 required style="min-height: 60px; padding: 1rem; font-size: 1rem;">
                         </div>
                         <div class="form-text text-warning mt-2" style="font-size: 12px;">
-                            <i class="bi bi-info-circle me-1"></i>PDF format only, max 2MB
+                            <i class="fa-solid fa-circle-info me-1"></i>PDF format only, max 2MB
                         </div>
                     </div>
 
@@ -81,7 +81,7 @@
                         <div class="col-12 col-md-6 mb-3 mb-md-0">
                             <div class="">
                                 <label for="jobTitle" class="form-label">
-                                    <i class="bi bi-briefcase me-2"></i>Job Title
+                                    <i class="fa-solid fa-briefcase me-2"></i>Job Title
                                 </label>
                                 <input type="text" class="form-control" id="jobTitle" name="jobTitle"
                                     placeholder="Software Developer" value="<%= jobData ? jobData.jobTitle : '' %>"
@@ -92,7 +92,7 @@
                         <div class="col-12 col-md-6 mb-3 mb-md-0">
                             <div class="">
                                 <label for="companyName" class="form-label">
-                                    <i class="bi bi-building me-2"></i>Company Name
+                                    <i class="fa-solid fa-building me-2"></i>Company Name
                                 </label>
                                 <input type="text" class="form-control" id="companyName" name="companyName"
                                     placeholder="TechCorp Tanzania" value="<%= jobData ? jobData.companyName : '' %>"
@@ -106,7 +106,7 @@
                         <div class="col-12 col-md-6 mb-3 mb-md-0">
                             <div class="">
                                 <label for="jobLocation" class="form-label">
-                                    <i class="bi bi-geo-alt-fill me-2"></i>Job Location
+                                    <i class="fa-solid fa-location-dot me-2"></i>Job Location
                                 </label>
                                 <input type="text" class="form-control" id="jobLocation" name="jobLocation"
                                     placeholder="Dar es Salaam, Tanzania" value="<%= jobData ? jobData.location : '' %>"
@@ -117,7 +117,7 @@
                         <div class="col-12 col-md-6 mb-3 mb-md-0">
                             <div class="">
                                 <label for="companyAddress" class="form-label">
-                                    <i class="bi bi-envelope-paper me-2"></i>Company Address
+                                    <i class="fa-solid fa-envelope-open-text me-2"></i>Company Address
                                 </label>
                                 <input type="text" class="form-control" id="companyAddress" name="companyAddress"
                                     placeholder="P.O Box 666, Ocean Road" value="<%= jobData ? jobData.companyAddress : '' %>"
@@ -129,7 +129,7 @@
                     <!-- Job Description -->
                     <div class="mb-4">
                         <label for="jobDescription" class="form-label fw-bold fs-6">
-                            <i class="bi bi-file-text me-2"></i>Job Description
+                            <i class="fa-solid fa-file-lines me-2"></i>Job Description
                         </label>
                         <textarea class="form-control" id="jobDescription" name="jobDescription" rows="6"
                             placeholder="Paste tangazo la kazi hapa..." required
@@ -156,7 +156,7 @@
                     <div class="text-center">
                         <button type="submit" class="btn btn-primary btn-lg w-100 w-md-auto px-5" id="generateBtn"
                             style="min-height: 60px; font-size: 1.1rem;">
-                            <i class="bi bi-magic me-2"></i>Generate Cover Letter
+                            <i class="fa-solid fa-wand-magic-sparkles me-2"></i>Generate Cover Letter
                         </button>
                     </div>
                 </form>
@@ -172,23 +172,23 @@
             <div class="card bg-light border-0">
                 <div class="card-body p-4">
                     <h5 class="fw-bold mb-3">
-                        <i class="bi bi-lightbulb text-warning me-2"></i>Tips for Better Results
+                        <i class="fa-solid fa-lightbulb text-warning me-2"></i>Tips for Better Results
                     </h5>
                     <ul class="list-unstyled mb-0">
                         <li class="mb-2">
-                            <i class="bi bi-check-circle text-success me-2"></i>
+                            <i class="fa-solid fa-circle-check text-success me-2"></i>
                             Upload a recent, well-formatted CV for best results
                         </li>
                         <li class="mb-2">
-                            <i class="bi bi-check-circle text-success me-2"></i>
+                            <i class="fa-solid fa-circle-check text-success me-2"></i>
                             Include the complete job description for accurate tailoring
                         </li>
                         <li class="mb-2">
-                            <i class="bi bi-check-circle text-success me-2"></i>
+                            <i class="fa-solid fa-circle-check text-success me-2"></i>
                             Mention specific skills or experiences you want highlighted
                         </li>
                         <li class="mb-0">
-                            <i class="bi bi-check-circle text-success me-2"></i>
+                            <i class="fa-solid fa-circle-check text-success me-2"></i>
                             Review and customize the generated letter before sending
                         </li>
                     </ul>
@@ -267,7 +267,7 @@
             const generateBtn = document.getElementById('generateBtn');
             const originalBtnText = generateBtn.innerHTML;
             generateBtn.disabled = true;
-            generateBtn.innerHTML = '<i class="bi bi-hourglass-split me-2"></i>Generating...';
+            generateBtn.innerHTML = '<i class="fa-solid fa-hourglass-half me-2"></i>Generating...';
             progressContainer.style.display = 'block';
 
             try {

@@ -1,21 +1,14 @@
-const MTipsUsersModel = require("../models/MTipsUsers");
+const { default: axios } = require("axios");
 
-const mikekaTipsPaymentWebhook = async (orderReference, userEmail) => {
+const mikekaTipsPaymentWebhook = async (order_id, status, email) => {
     try {
-        let user = await MTipsUsersModel.findOne({ email: userEmail })
-        if (!user) return console.log(`User to confirm ${orderReference} not found`);
-
-        const expDate = new Date();
-        expDate.setMonth(expDate.getMonth() + 1);
-        user.isPaid = true
-        user.paidAt = new Date()
-        user.expiresAt = expDate
-        await user.save()
-        pymnt.paymentStatus = 'CONFIRMED'
-        await pymnt.save()
-        return console.log('MikekaTips Order confirmed by webhook')
+        const payload = {
+            order_id, payment_status: status, email, reference: order_id, SECRET: process.env.PASS_USER
+        }
+        const mtipsServer = "https://mikekatips.fly.dev/api/payment-webhook"
+        await axios.post(mtipsServer, payload)
     } catch (error) {
-        //
+        console.error("MikekaTips Payment Webhook Error:", error?.message || error)
     }
 }
 

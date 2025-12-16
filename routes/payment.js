@@ -117,6 +117,74 @@ router.post('/payment/process', ensureAuthenticated, async (req, res) => {
     }
 });
 
+// POST /payment/processes from other servers
+router.post('/payment/process/:server', async (req, res) => {
+    try {
+        const server = req.params.server;
+        if (!['mtips', 'uhakika', 'waleo'].includes(server)) {
+            return res.status(400).json({
+                success: false,
+                message: 'Server is not supported'
+            });
+        }
+
+        const { phoneNumber, amount, user, orderRef, SECRET } = req.body;
+
+        if (SECRET !== process.env.PASS_USER) {
+            return res.status(403).json({
+                success: false,
+                message: 'Unauthorized request'
+            });
+        }
+
+        // For now, we'll simulate a successful payment request
+        console.log('Payment request received:', req.body);
+
+        let paymentUSSDResponse;
+        try {
+            paymentUSSDResponse = await initiateClickPesaUSSDPush(amount, 'TZS', orderRef, phoneNumber.replace('+', ''));
+            console.log('Payment USSD response:', paymentUSSDResponse);
+        } catch (apiError) {
+            console.error('ClickPesa API error:', apiError);
+            return res.status(500).json({
+                success: false,
+                message: 'Tumeshindwa kutuma ombi la malipo. Tafadhali hakikisha namba ya simu na ujaribu tena.'
+            });
+        }
+
+        // Store payment request in database with pending status
+        try {
+            await PaymentBin.create({
+                userId: user.userId,
+                userEmail: user.email,
+                paymentId: paymentUSSDResponse?.id || orderRef,
+                orderReference: orderRef,
+                paymentStatus: paymentUSSDResponse?.status || 'PROCESSING',
+                server: server.toUpperCase()
+            });
+        } catch (dbError) {
+            console.error('Database error while creating payment record:', dbError);
+            return res.status(500).json({
+                success: false,
+                message: 'Tumeshindwa kuhifadhi ombi la malipo. Tafadhali jaribu tena.'
+            });
+        }
+
+        res.status(200).json({
+            success: true,
+            message: 'Ombi la malipo limetumwa kikamilifu. Fuata maagizo kwenye simu yako kufanya malipo.',
+            paymentId: paymentUSSDResponse?.orderReference || orderRef,
+        });
+
+    } catch (error) {
+        console.error('Payment processing error:', error.message);
+        res.status(500).json({
+            success: false,
+            message: 'Tumeshindwa anzisha malipo. Tafadhali jaribu tena baadaye.'
+        });
+    }
+});
+
 // POST /payment/webhook - Handle payment webhook (for payment gateway callbacks)
 router.post('/payment/webhook', async (req, res) => {
     try {
@@ -131,9 +199,12 @@ router.post('/payment/webhook', async (req, res) => {
 
             //check if it is for mikekatips
             if (String(orderReference).startsWith('MTIPS')) {
-                return mikekaTipsPaymentWebhook(orderReference, pymnt.userEmail)
+                pymnt.paymentStatus = 'CONFIRMED'
+                await pymnt.save()
+                return mikekaTipsPaymentWebhook(orderReference, "COMPLETED", String(pymnt.userEmail).toLowerCase());
             }
 
+            //CONTINUE WITH BARUAKAZI FLOW
             let user = await User.findOne({ email: pymnt.userEmail })
             if (!user) return console.log(`User to confirm ${orderReference} not found`);
 

@@ -13,21 +13,21 @@
                 <div class="d-flex flex-column flex-sm-row gap-3">
                     <% if (user) { %>
                     <a href="/generate" class="btn btn-light btn-hero">
-                        <i class="bi bi-file-text me-2"></i>Tengeneza Sasa
+                        <i class="fa-solid fa-file-lines me-2"></i>Tengeneza Sasa
                     </a>
                     <% } else { %>
                     <a href="/auth/signup" class="btn btn-light btn-hero">
-                        <i class="bi bi-person-plus me-2"></i>Anza Bure
+                        <i class="fa-solid fa-user-plus me-2"></i>Anza Bure
                     </a>
                     <a href="/auth/login" class="btn btn-outline-light btn-hero">
-                        <i class="bi bi-box-arrow-in-right me-2"></i>Ingia
+                        <i class="fa-solid fa-right-to-bracket me-2"></i>Ingia
                     </a>
                     <% } %>
                 </div>
             </div>
             <div class="col-lg-6 text-center">
                 <div class="hero-image mt-5 mt-lg-0">
-                    <i class="bi bi-file-earmark-text text-white" style="font-size: 12rem; opacity: 0.8;"></i>
+                    <i class="fa-solid fa-file-lines text-white" style="font-size: 12rem; opacity: 0.8;"></i>
                 </div>
             </div>
         </div>
@@ -48,7 +48,7 @@
             <div class="col-md-4">
                 <div class="card feature-card h-100 text-center p-4">
                     <div class="feature-icon bg-primary text-white mx-auto">
-                        <i class="bi bi-cloud-upload"></i>
+                        <i class="fa-solid fa-cloud-arrow-up"></i>
                     </div>
                     <h4 class="fw-bold">1. Pakia CV Yako</h4>
                     <p class="text-muted">Pakia CV au wasifu wako uliopo kwa muundo wa PDF. Mfumo wetu utachambua
@@ -59,7 +59,7 @@
             <div class="col-md-4">
                 <div class="card feature-card h-100 text-center p-4">
                     <div class="feature-icon bg-success text-white mx-auto">
-                        <i class="bi bi-briefcase"></i>
+                        <i class="fa-solid fa-briefcase"></i>
                     </div>
                     <h4 class="fw-bold">2. Weka Maelezo ya Kazi</h4>
                     <p class="text-muted">Toa jina la nafasi, kampuni na maelezo ya kazi. Tutaiunda barua yako kulingana
@@ -70,7 +70,7 @@
             <div class="col-md-4">
                 <div class="card feature-card h-100 text-center p-4">
                     <div class="feature-icon bg-info text-white mx-auto">
-                        <i class="bi bi-download"></i>
+                        <i class="fa-solid fa-download"></i>
                     </div>
                     <h4 class="fw-bold">3. Pakua & Tuma Maombi</h4>
                     <p class="text-muted">Pata barua yako ya kazi bora katika muundo wa PDF, tayari kwa kutumwa
@@ -82,11 +82,11 @@
         <div class="d-flex flex-column col-lg-8 mx-auto gap-3 mt-5">
             <% if (user) { %>
             <a href="/generate" class="btn btn-light btn-hero border-primary">
-                <i class="bi bi-file-text me-2"></i>Tengeneza Sasa
+                <i class="fa-solid fa-file-lines me-2"></i>Tengeneza Sasa
             </a>
             <% } else { %>
             <a href="/auth/signup" class="btn btn-light btn-hero border-primary">
-                <i class="bi bi-file-text me-2"></i>Tengeneza Sasa
+                <i class="fa-solid fa-file-lines me-2"></i>Tengeneza Sasa
             </a>
             <% } %>
         </div>
@@ -123,7 +123,7 @@
                         </p>
                         <div class="d-flex justify-content-between align-items-center mb-3">
                             <small class="text-muted">
-                                <i class="bi bi-geo-alt me-1"></i><%= job.location %>
+                                <i class="fa-solid fa-location-dot me-1"></i><%= job.location %>
                             </small>
                             <small class="text-muted">
                                 <%= Math.floor((new Date() - job.createdAt) / (1000 * 60 * 60 * 24)) %> siku zilizopita
@@ -134,17 +134,17 @@
                             <div class="row g-2">
                                 <div class="col-12">
                                     <a href="/job/<%= job.slug %>" class="btn btn-outline-primary btn-sm w-100 mb-2">
-                                        <i class="bi bi-eye me-2"></i>Angalia Maelezo
+                                        <i class="fa-solid fa-eye me-2"></i>Angalia Maelezo
                                     </a>
                                 </div>
                                 <div class="col-12">
                                     <% if (user) { %>
                                     <a href="/generate?jobid=<%= job._id %>" class="btn btn-primary w-100">
-                                        <i class="bi bi-file-text me-2"></i>Tengeneza Barua
+                                        <i class="fa-solid fa-file-lines me-2"></i>Tengeneza Barua
                                     </a>
                                     <% } else { %>
                                     <a href="/auth/login" class="btn btn-primary w-100">
-                                        <i class="bi bi-box-arrow-in-right me-2"></i>Ingia Kutengeneza
+                                        <i class="fa-solid fa-right-to-bracket me-2"></i>Ingia Kutengeneza
                                     </a>
                                     <% } %>
                                 </div>
@@ -159,7 +159,7 @@
 
         <div class="text-center mt-5">
             <a href="/job" class="btn btn-outline-primary btn-lg">
-                <i class="bi bi-journal-text me-2"></i>Angalia Nafasi Zote za Kazi
+                <i class="fa-solid fa-book me-2"></i>Angalia Nafasi Zote za Kazi
             </a>
         </div>
     </div>
@@ -178,11 +178,11 @@
                     kuandika barua bora za maombi ya kazi.</p>
                 <% if (!user) { %>
                 <a href="/auth/signup" class="btn btn-light btn-hero">
-                    <i class="bi bi-person-plus me-2"></i>Anza Kutengeneza Leo
+                    <i class="fa-solid fa-user-plus me-2"></i>Anza Kutengeneza Leo
                 </a>
                 <% } else { %>
                 <a href="/generate" class="btn btn-light btn-hero">
-                    <i class="bi bi-file-text me-2"></i>Andika Barua Yako
+                    <i class="fa-solid fa-file-lines me-2"></i>Andika Barua Yako
                 </a>
                 <% } %>
             </div>

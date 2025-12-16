@@ -10,11 +10,11 @@
                                 <div class="flex-grow-1">
                                     <h1 class="h2 fw-bold mb-2"><%= job.jobTitle %></h1>
                                     <div class="h5 text-primary mb-2">
-                                        <i class="bi bi-building me-2"></i><%= job.companyName %>
+                                        <i class="fa-solid fa-building me-2"></i><%= job.companyName %>
                                     </div>
                                     <div class="d-flex flex-wrap gap-3 text-muted">
-                                        <span><i class="bi bi-geo-alt me-1"></i><%= job.location %></span>
-                                        <span><i class="bi bi-person me-1"></i>Reports to: <%= job.reportTo %></span>
+                                        <span><i class="fa-solid fa-location-dot me-1"></i><%= job.location %></span>
+                                        <span><i class="fa-solid fa-user me-1"></i>Reports to: <%= job.reportTo %></span>
                                     </div>
                                 </div>
                             </div>
@@ -24,16 +24,16 @@
                             <div class="d-grid gap-2">
                                 <% if (user) { %>
                                     <a href="/generate?jobid=<%= job._id %>" class="btn btn-primary btn-lg">
-                                        <i class="bi bi-file-text me-2"></i>Generate Cover Letter
+                                        <i class="fa-solid fa-file-lines me-2"></i>Generate Cover Letter
                                     </a>
                                 <% } else { %>
                                     <a href="/auth/login" class="btn btn-primary btn-lg">
-                                        <i class="bi bi-box-arrow-in-right me-2"></i>Login to Generate
+                                        <i class="fa-solid fa-right-to-bracket me-2"></i>Login to Generate
                                     </a>
                                 <% } %>
                                 <small class="text-muted">
-                                    <i class="bi bi-eye me-1"></i><%= job.views %> views
-                                    <span class="ms-3"><i class="bi bi-file-text me-1"></i><%= job.applications %> applications</span>
+                                    <i class="fa-solid fa-eye me-1"></i><%= job.views %> views
+                                    <span class="ms-3"><i class="fa-solid fa-file-lines me-1"></i><%= job.applications %> applications</span>
                                 </small>
                                 <small class="text-muted">
                                     Posted <%= Math.floor((new Date() - job.createdAt) / (1000 * 60 * 60 * 24)) %> days ago
@@ -53,7 +53,7 @@
             <div class="card border-0 shadow-sm mb-4">
                 <div class="card-body p-4">
                     <h2 class="fw-bold mb-3">
-                        <i class="bi bi-file-text text-primary me-2"></i>Job Description
+                        <i class="fa-solid fa-file-lines text-primary me-2"></i>Job Description
                     </h2>
                     <div class="job-description">
                         <%- job.description.html %>
@@ -71,11 +71,11 @@
                     <p class="text-muted mb-4">Generate a professional cover letter tailored for this position</p>
                     <% if (user) { %>
                         <a href="/generate?jobid=<%= job._id %>" class="btn btn-primary btn-lg w-100 mb-3">
-                            <i class="bi bi-file-text me-2"></i>Generate Cover Letter
+                            <i class="fa-solid fa-file-lines me-2"></i>Generate Cover Letter
                         </a>
                     <% } else { %>
                         <a href="/auth/login" class="btn btn-primary btn-lg w-100 mb-3">
-                            <i class="bi bi-box-arrow-in-right me-2"></i>Login to Generate
+                            <i class="fa-solid fa-right-to-bracket me-2"></i>Login to Generate
                         </a>
                     <% } %>
                     <small class="text-muted d-block">
@@ -90,19 +90,19 @@
                     <h5 class="fw-bold mb-3">Company Information</h5>
                     <div class="company-info">
                         <div class="d-flex align-items-center mb-2">
-                            <i class="bi bi-building text-primary me-3"></i>
+                            <i class="fa-solid fa-building text-primary me-3"></i>
                             <span><%= job.companyName %></span>
                         </div>
                         <div class="d-flex align-items-center mb-2">
-                            <i class="bi bi-geo-alt text-primary me-3"></i>
+                            <i class="fa-solid fa-location-dot text-primary me-3"></i>
                             <span><%= job.location %></span>
                         </div>
                         <div class="d-flex align-items-center mb-2">
-                            <i class="bi bi-briefcase text-primary me-3"></i>
+                            <i class="fa-solid fa-briefcase text-primary me-3"></i>
                             <span><%= job.jobType %> Position</span>
                         </div>
                         <div class="d-flex align-items-center">
-                            <i class="bi bi-person text-primary me-3"></i>
+                            <i class="fa-solid fa-user text-primary me-3"></i>
                             <span>Reports to <%= job.reportTo %></span>
                         </div>
                     </div>
@@ -140,7 +140,7 @@
     <div class="row mt-5">
         <div class="col-12 text-center">
             <a href="/job" class="btn btn-outline-secondary">
-                <i class="bi bi-arrow-left me-2"></i>Back to All Jobs
+                <i class="fa-solid fa-arrow-left me-2"></i>Back to All Jobs
             </a>
         </div>
     </div>

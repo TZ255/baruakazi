@@ -12,7 +12,7 @@
                     </p>
                 </div>
                 <a href="/admin" class="btn btn-outline-secondary">
-                    <i class="bi bi-arrow-left me-2"></i>Back to Dashboard
+                    <i class="fa-solid fa-arrow-left me-2"></i>Back to Dashboard
                 </a>
             </div>
 
@@ -101,12 +101,12 @@
                         <!-- Job Description -->
                         <div class="mb-4">
                             <label for="description" class="form-label fw-bold">
-                                <i class="bi bi-file-text me-2"></i>Job Description *
+                                <i class="fa-solid fa-file-lines me-2"></i>Job Description *
                             </label>
                             <textarea class="form-control" id="description" name="description" rows="8" required
                                       placeholder="Enter the job description. This will be automatically formatted using AI for better presentation..."><%= job ? job.description.text : '' %></textarea>
                             <div class="form-text">
-                                <i class="bi bi-magic text-primary me-1"></i>
+                                <i class="fa-solid fa-wand-magic-sparkles text-primary me-1"></i>
                                 This will be automatically formatted using AI for better presentation
                             </div>
                         </div>
@@ -114,7 +114,7 @@
                         <!-- Requirements -->
                         <div class="mb-4">
                             <label for="requirements" class="form-label fw-bold">
-                                <i class="bi bi-list-check me-2"></i>Requirements (Optional)
+                                <i class="fa-solid fa-list-check me-2"></i>Requirements (Optional)
                             </label>
                             <textarea class="form-control" id="requirements" name="requirements" rows="5"
                                       placeholder="Enter each requirement on a new line..." disabled><%= job && job.requirements ? job.requirements.join('\n') : '' %></textarea>
@@ -124,7 +124,7 @@
                         <!-- Benefits -->
                         <div class="mb-4">
                             <label for="benefits" class="form-label fw-bold">
-                                <i class="bi bi-gift me-2"></i>Benefits (Optional)
+                                <i class="fa-solid fa-gift me-2"></i>Benefits (Optional)
                             </label>
                             <textarea class="form-control" id="benefits" name="benefits" rows="4"
                                       placeholder="Enter each benefit on a new line..." disabled><%= job && job.benefits ? job.benefits.join('\n') : '' %></textarea>
@@ -148,7 +148,7 @@
                         <!-- Submit Button -->
                         <div class="text-center">
                             <button type="submit" class="btn btn-primary btn-lg px-5" id="submitBtn">
-                                <i class="bi bi-<%= action === 'create' ? 'plus-circle' : 'check-circle' %> me-2"></i>
+                                <i class="fa-solid fa-<%= action === 'create' ? 'circle-plus' : 'circle-check' %> me-2"></i>
                                 <%= action === 'create' ? 'Post Job' : 'Update Job' %>
                             </button>
                         </div>
@@ -168,7 +168,7 @@
             // Show loading state
             const originalText = submitBtn.innerHTML;
             submitBtn.disabled = true;
-            submitBtn.innerHTML = '<i class="bi bi-hourglass-split me-2"></i>Processing...';
+            submitBtn.innerHTML = '<i class="fa-solid fa-hourglass-half me-2"></i>Processing...';
 
             // Note: Form will submit naturally, this just provides user feedback
             setTimeout(() => {
