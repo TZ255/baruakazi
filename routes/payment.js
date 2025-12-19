@@ -201,14 +201,14 @@ router.post('/payment/webhook', async (req, res) => {
             if (String(orderReference).startsWith('MTIPS')) {
                 pymnt.paymentStatus = 'CONFIRMED'
                 await pymnt.save()
-                return mikekaTipsPaymentWebhook(orderReference, "COMPLETED", String(pymnt.userEmail).toLowerCase());
+                return mikekaTipsPaymentWebhook(orderReference, "COMPLETED", String(pymnt.userEmail).toLowerCase(), customerPhoneNumber);
             }
 
             //check if it is for YAUHAKIKA
             if (String(orderReference).startsWith('UHAKIKA')) {
                 pymnt.paymentStatus = 'CONFIRMED'
                 await pymnt.save()
-                return yaUhakikaTipsPaymentWebhook(orderReference, "COMPLETED", String(pymnt.userEmail).toLowerCase());
+                return yaUhakikaTipsPaymentWebhook(orderReference, "COMPLETED", String(pymnt.userEmail).toLowerCase(), customerPhoneNumber);
             }
 
             //CONTINUE WITH BARUAKAZI FLOW
