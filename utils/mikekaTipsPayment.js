@@ -1,9 +1,9 @@
 const { default: axios } = require("axios");
 
-const mikekaTipsPaymentWebhook = async (order_id, status, email) => {
+const mikekaTipsPaymentWebhook = async (order_id, status, email, phone) => {
     try {
         const payload = {
-            order_id, payment_status: status, email, reference: order_id, SECRET: process.env.PASS_USER
+            order_id, payment_status: status, email, phone, reference: order_id, SECRET: process.env.PASS_USER
         }
         const mtipsServer = "https://mikekatips.fly.dev/api/payment-webhook"
         await axios.post(mtipsServer, payload)
@@ -12,10 +12,10 @@ const mikekaTipsPaymentWebhook = async (order_id, status, email) => {
     }
 }
 
-const yaUhakikaTipsPaymentWebhook = async (order_id, status, email) => {
+const yaUhakikaTipsPaymentWebhook = async (order_id, status, email, phone) => {
     try {
         const payload = {
-            order_id, payment_status: status, email, reference: order_id, SECRET: process.env.PASS_USER
+            order_id, payment_status: status, email, phone, reference: order_id, SECRET: process.env.PASS_USER
         }
         const yaUhakikaServer = "https://yauhakika.up.railway.app/api/payment-webhook"
         await axios.post(yaUhakikaServer, payload)
