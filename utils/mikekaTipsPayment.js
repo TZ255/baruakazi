@@ -5,7 +5,7 @@ const mikekaTipsPaymentWebhook = async (order_id, status, email, phone) => {
         const payload = {
             order_id, payment_status: status, email, phone, reference: order_id, SECRET: process.env.PASS_USER
         }
-        const mtipsServer = "https://mikekatips.fly.dev/api/payment-webhook"
+        const mtipsServer = "https://mikekatips.up.railway.app/api/payment-webhook"
         await axios.post(mtipsServer, payload)
     } catch (error) {
         console.error("MikekaTips Payment Webhook Error:", error?.message || error)
