@@ -1,4 +1,5 @@
 const axios = require("axios");
+const { sendTelegramNotification } = require("./sendTelegramNotification");
 
 // Generate bearer token for ClickPesa
 const generateClickPesaToken = async () => {
@@ -60,6 +61,7 @@ const initiateClickPesaUSSDPush = async (amount, currency, orderReference, phone
         const finalMessage = serverMessage || error.message || fallbackMessage;
 
         console.error('USSD Push Error:', finalMessage);
+        sendTelegramNotification(`❌ USSD Clickpesa Push Error: ${finalMessage}`)
         throw new Error(finalMessage);
     }
 };
