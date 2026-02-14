@@ -6,7 +6,7 @@ const { initiateClickPesaUSSDPush, checkPaymentStatus, generateCheckOutLink } = 
 const PaymentBin = require('../models/PaymentBin');
 const { ensureAdmin } = require('../middleware/admin');
 const MTipsUsersModel = require('../models/MTipsUsers');
-const { mikekaTipsPaymentWebhook, yaUhakikaTipsPaymentWebhook } = require('../utils/mikekaTipsPayment');
+const { mikekaTipsPaymentWebhook, yaUhakikaTipsPaymentWebhook, waLeoPaymentWebhook } = require('../utils/mikekaTipsPayment');
 
 const router = express.Router();
 
@@ -209,6 +209,13 @@ router.post('/payment/webhook', async (req, res) => {
                 pymnt.paymentStatus = 'CONFIRMED'
                 await pymnt.save()
                 return yaUhakikaTipsPaymentWebhook(orderReference, "COMPLETED", String(pymnt.userEmail).toLowerCase(), customerPhoneNumber);
+            }
+
+            //check if it is for YAUHAKIKA
+            if (String(orderReference).startsWith('WALEO')) {
+                pymnt.paymentStatus = 'CONFIRMED'
+                await pymnt.save()
+                return waLeoPaymentWebhook(orderReference, "COMPLETED", String(pymnt.userEmail).toLowerCase(), customerPhoneNumber);
             }
 
             //CONTINUE WITH BARUAKAZI FLOW

@@ -24,8 +24,21 @@ const yaUhakikaTipsPaymentWebhook = async (order_id, status, email, phone) => {
     }
 }
 
+const waLeoPaymentWebhook = async (order_id, status, email, phone) => {
+    try {
+        const payload = {
+            order_id, payment_status: status, email, phone, reference: order_id, SECRET: process.env.PASS_USER
+        }
+        const waLeoServer = "https://mkekawaleo.com/api/payment-webhook"
+        await axios.post(waLeoServer, payload)
+    } catch (error) {
+        console.error("WaLeo Payment Webhook Error:", error?.message || error)
+    }
+}
+
 
 module.exports = {
     mikekaTipsPaymentWebhook,
-    yaUhakikaTipsPaymentWebhook
+    yaUhakikaTipsPaymentWebhook,
+    waLeoPaymentWebhook
 };
