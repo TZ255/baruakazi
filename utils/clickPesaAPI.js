@@ -29,6 +29,7 @@ const generateClickPesaToken = async () => {
         const finalMessage = serverMessage || error.message || fallbackMessage;
 
         console.error('Token Generation Error:', finalMessage);
+        sendTelegramNotification(`❌ Clickpesa Token Generation Error: ${finalMessage}`);
         throw new Error(finalMessage);
     }
 };
@@ -61,7 +62,7 @@ const initiateClickPesaUSSDPush = async (amount, currency, orderReference, phone
         const finalMessage = serverMessage || error.message || fallbackMessage;
 
         console.error('USSD Push Error:', finalMessage);
-        sendTelegramNotification(`❌ USSD Clickpesa Push Error: ${finalMessage}`)
+        sendTelegramNotification(`❌ USSD Clickpesa Push Error: ${finalMessage} for phone ${phoneNumber} and order ${orderReference}`);
         throw new Error(finalMessage);
     }
 };

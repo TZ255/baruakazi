@@ -148,7 +148,7 @@ router.post('/payment/process/:server', async (req, res) => {
             console.error('ClickPesa API error:', apiError);
             return res.status(500).json({
                 success: false,
-                message: 'Tumeshindwa kutuma ombi la malipo. Tafadhali hakikisha namba ya simu na ujaribu tena.'
+                message: 'Tumeshindwa kutuma ombi la malipo. Tafadhali hakikisha namba ya simu na ujaribu tena au jaribu kwa mtandao mwingine.'
             });
         }
 
