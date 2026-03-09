@@ -83,7 +83,8 @@ router.post('/payment/process', ensureAuthenticated, async (req, res) => {
         } catch (apiError) {
             console.error('ClickPesa API error:', apiError);
             return res.status(500).json({
-                error: 'Tumeshindwa kutuma ombi la malipo. Tafadhali hakikisha namba ya simu na ujaribu tena.'
+                error: 'Tumeshindwa kutuma ombi la malipo. Tafadhali hakikisha namba ya simu na ujaribu tena.',
+                message: 'Tumeshindwa kutuma ombi la malipo. Tafadhali hakikisha namba ya simu na ujaribu tena.',
             });
         }
 
@@ -99,7 +100,8 @@ router.post('/payment/process', ensureAuthenticated, async (req, res) => {
         } catch (dbError) {
             console.error('Database error while creating payment record:', dbError);
             return res.status(500).json({
-                error: 'Tumeshindwa kuhifadhi ombi la malipo. Tafadhali jaribu tena.'
+                error: 'Tumeshindwa kuhifadhi ombi la malipo. Tafadhali jaribu tena.',
+                message: 'Tumeshindwa kuhifadhi ombi la malipo. Tafadhali jaribu tena.',
             });
         }
 
@@ -112,7 +114,8 @@ router.post('/payment/process', ensureAuthenticated, async (req, res) => {
     } catch (error) {
         console.error('Payment processing error:', error.message);
         res.status(500).json({
-            error: error.message || 'Tumeshindwa anzisha malipo. Tafadhali jaribu tena baadaye.'
+            error: error.message || 'Tumeshindwa anzisha malipo. Tafadhali jaribu tena baadaye.',
+            message: error.message || 'Tumeshindwa anzisha malipo. Tafadhali jaribu tena baadaye.'
         });
     }
 });
