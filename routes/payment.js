@@ -197,8 +197,9 @@ router.post('/payment/webhook', async (req, res) => {
         console.log('Payment webhook received:', req.body);
 
         if (status.toLowerCase() === 'success') {
-            let pymnt = await PaymentBin.findOne({ orderReference, paymentStatus: "PROCESSING" })
+            let pymnt = await PaymentBin.findOne({ orderReference })
             if (!pymnt) return console.log(`${orderReference} order not found`);
+            if (pymnt.paymentStatus === 'CONFIRMED') return console.log(`${orderReference} order already confirmed`);
 
             //check if it is for mikekatips
             if (String(orderReference).startsWith('MTIPS')) {
