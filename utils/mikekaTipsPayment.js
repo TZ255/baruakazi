@@ -20,6 +20,7 @@ const yaUhakikaTipsPaymentWebhook = async (order_id, status, email, phone) => {
         const yaUhakikaServer = "https://mikekayauhakika.com/api/payment-webhook"
         await axios.post(yaUhakikaServer, payload)
     } catch (error) {
+        console.log(error)
         console.error("YaUhakika Payment Webhook Error:", error?.message || error)
     }
 }
