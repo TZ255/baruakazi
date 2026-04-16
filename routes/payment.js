@@ -131,9 +131,10 @@ router.post('/payment/process/:server', async (req, res) => {
             });
         }
 
-        const { phoneNumber, amount, user, orderRef, SECRET } = req.body;
+        const { phoneNumber, amount, user, orderRef } = req.body;
+        const secret = req.headers['x-webhook-secret'];
 
-        if (SECRET !== process.env.PASS_USER) {
+        if (secret !== process.env.PASS_USER) {
             return res.status(403).json({
                 success: false,
                 message: 'Unauthorized request'
