@@ -14,6 +14,7 @@ const generateRoutes = require('./routes/generate');
 const authRoutes = require('./routes/auth');
 const indexRoutes = require('./routes/index');
 const paymentRoutes = require('./routes/payment');
+const snippeRoutes = require('./routes/snippe');
 const adminRoutes = require('./routes/admin');
 
 const app = express();
@@ -65,6 +66,7 @@ app.use(indexRoutes);
 app.use(authRoutes);
 app.use(generateRoutes);
 app.use(paymentRoutes);
+app.use(snippeRoutes);
 app.use(adminRoutes);
 
 const PORT = process.env.PORT || 3000;
